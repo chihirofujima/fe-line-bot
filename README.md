@@ -128,3 +128,6 @@ Messaging API特有の応答ルール（Webhookの処理やプッシュ通知の
 
 ### 画面遷移図
 Figma：<https://www.figma.com/design/8MP2CQfrY8XxY6PfP8wS5h/STUDY-LINE-AI?node-id=0-1&p=f&t=wLo3hfSh2NtX13qJ-0>
+
+### ER図
+[![Image from Gyazo](https://i.gyazo.com/5dece19ef59ea0b4e785bee7eea8cd51.png)](https://gyazo.com/5dece19ef59ea0b4e785bee7eea8cd51)
