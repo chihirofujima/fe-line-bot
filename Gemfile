@@ -19,6 +19,13 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 gem "sassc-rails"
+# LINE Bot連携
+gem "line-bot-api"
+# 画像アップロード
+gem "image_processing", "~> 1.2"
+gem "aws-sdk-s3", require: false  # S3に保存する場合
+# Bootstrap
+gem "bootstrap", "~> 5.3"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
