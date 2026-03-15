@@ -3,7 +3,7 @@
 # Install the pg driver:
 #   gem install pg
 # On macOS with Homebrew:
-#   gem install pg -- --with-pg-config=/opt/homebrew/bin/pg_config
+#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
 # On Windows:
 #   gem install pg
 #       Choose the win32 build.
@@ -18,19 +18,17 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: db
-  username: postgres
-  password: password
+
 
 development:
   <<: *default
-  database: myapp_development
+  database: newapp_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: myapp
+  #username: newapp
 
   # The password associated with the PostgreSQL role (username).
   #password:
@@ -58,7 +56,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: myapp_test
+  database: newapp_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -77,15 +75,11 @@ test:
 #   production:
 #     url: <%= ENV["MY_APP_DATABASE_URL"] %>
 #
-# Connection URLs for non-primary databases can also be configured using
-# environment variables. The variable name is formed by concatenating the
-# connection name with `_DATABASE_URL`. For example:
-#
-#   CACHE_DATABASE_URL="postgres://cacheuser:cachepass@localhost/cachedatabase"
-#
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
 production:
   <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
+  database: newapp_production
+  username: newapp
+  password: <%= ENV["NEWAPP_DATABASE_PASSWORD"] %>
