@@ -7,17 +7,25 @@ class LineBotController < ApplicationController
     body = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
 
-    unless client.validate_signature(body, signature)
+    begin
+      events = parser.parse(body: body, signature: signature)
+    rescue Line::Bot::V2::WebhookParser::InvalidSignatureError
       return head :bad_request
     end
 
-    events = client.parse_events_from(body)
     events.each do |event|
-      if event.is_a?(Line::Bot::Event::Message)
-        client.reply_message(event['replyToken'], {
-          type: 'text',
-          text: event.message['text']
-        })
+      case event
+      when Line::Bot::V2::Webhook::MessageEvent
+        case event.message
+        when Line::Bot::V2::Webhook::TextMessageContent
+          reply_request = Line::Bot::V2::MessagingApi::ReplyMessageRequest.new(
+            reply_token: event.reply_token,
+            messages: [
+              Line::Bot::V2::MessagingApi::TextMessage.new(text: "[ECHO] #{event.message.text}")
+            ]
+          )
+          client.reply_message(reply_message_request: reply_request)
+        end
       end
     end
 
@@ -27,9 +35,14 @@ class LineBotController < ApplicationController
   private
 
   def client
-    @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV['LINE_CHANNEL_SECRET']
-      config.channel_token = ENV['LINE_CHANNEL_TOKEN']
-    }
+    @client ||= Line::Bot::V2::MessagingApi::ApiClient.new(
+      channel_access_token: ENV.fetch("LINE_CHANNEL_TOKEN")
+    )
+  end
+
+  def parser
+    @parser ||= Line::Bot::V2::WebhookParser.new(
+      channel_secret: ENV.fetch("LINE_CHANNEL_SECRET")
+    )
   end
 end
