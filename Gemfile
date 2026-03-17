@@ -20,7 +20,7 @@ gem "jbuilder"
 # gem "redis", ">= 4.0.1"
 gem "sassc-rails"
 # LINE Bot連携
-gem "line-bot-api", require: "line/bot"
+gem "line-bot-api"
 # 画像アップロード
 gem "image_processing", "~> 1.2"
 gem "aws-sdk-s3", require: false  # S3に保存する場合
