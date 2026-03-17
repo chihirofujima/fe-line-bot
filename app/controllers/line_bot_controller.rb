@@ -1,4 +1,4 @@
-require 'line/bot' 
+require 'line/bot'
 
 class LineBotController < ApplicationController
   protect_from_forgery except: [:callback]
