@@ -15,6 +15,9 @@ class LineBotController < ApplicationController
 
     events.each do |event|
       case event
+      when Line::Bot::V2::Webhook::FollowEvent
+        # 友達追加時にDBに登録
+        User.find_or_create_by(line_user_id: event.source.user_id)
       when Line::Bot::V2::Webhook::MessageEvent
         case event.message
         when Line::Bot::V2::Webhook::TextMessageContent
