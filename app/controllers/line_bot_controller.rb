@@ -1,11 +1,11 @@
-require 'line/bot'
+require "line/bot"
 
 class LineBotController < ApplicationController
-  protect_from_forgery except: [:callback]
-
+  protect_from_forgery except: [ :callback ]
+ 
   def callback
     body = request.body.read
-    signature = request.env['HTTP_X_LINE_SIGNATURE']
+    signature = request.env["HTTP_X_LINE_SIGNATURE"]
 
     begin
       events = parser.parse(body: body, signature: signature)
