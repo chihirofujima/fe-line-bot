@@ -110,7 +110,7 @@ UI・体験の改善：出題ジャンルの拡充とプラットフォーム化
 ## 10. 技術スタック
 ## 10-1. 使用予定の技術
 フレームワーク：Ruby on Rails 7.2 
-DB：Neon  
+DB：Neon
 デプロイ先：Render  
 ライブラリ：line-bot-api, sidekiq-scheduler
 
