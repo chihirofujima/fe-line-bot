@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root to: proc { [200, {}, ["OK"]] }
+  root to: proc { [ 200, {}, [ "OK" ] ] }
 end
