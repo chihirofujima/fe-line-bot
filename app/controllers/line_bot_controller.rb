@@ -1,7 +1,7 @@
-require 'line/bot'
+require "line/bot"
 
 class LineBotController < ApplicationController
-  protect_from_forgery except: [:callback]
+  protect_from_forgery except: [ :callback ]
 
   def callback
     body = request.body.read
@@ -55,16 +55,16 @@ class LineBotController < ApplicationController
   def handle_postback(event)
     params = URI.decode_www_form(event.postback.data).to_h
 
-    case params['action']
-    when 'next'
+    case params["action"]
+    when "next"
       handle_message(event)
-    when 'end'
-      reply_text(event.reply_token, 'お疲れ様でした！またいつでも挑戦してね。')
+    when "end"
+      reply_text(event.reply_token, "お疲れ様でした！またいつでも挑戦してね。")
     else
-      user_answer = params['answer']
-      question_id = params['question_id'].to_i
-      year        = params['year']
-      correct     = params['correct']
+      user_answer = params["answer"]
+      question_id = params["question_id"].to_i
+      year        = params["year"]
+      correct     = params["correct"]
       is_correct  = user_answer == correct
 
       q    = QuestionLoader.find(year: year, number: question_id)
