@@ -61,6 +61,7 @@ def extract_questions(pdf_path):
         # ⑥ 「問X 」を除去
         content = re.sub(r'^問\d+\s+', '', text).strip()
         # ★テスト用（20問PDFの場合）
+        # 2019年以前（80問）の場合はここを80にすること！
         if num == 20:
             content = re.sub(r'(\nエ [^〔©]+).*$', r'\1', content, flags=re.DOTALL).strip()
         # 図・表・画像の目印を追加
