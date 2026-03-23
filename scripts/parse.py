@@ -90,15 +90,15 @@ def merge_and_export(questions, answers):
             'image_url':      '[IMAGE_HERE]' if has_image else None
         })
     return results
-# # 実行
+# 実行
 # answers   = extract_answers('answer.pdf')
 # questions = extract_questions('2018h30a_fe_am_qs.pdf')
 # results   = merge_and_export(questions, answers)
 
 # 確認出力
 # for r in results:
-#    print(f"問{r['number']}:")
-#    print(f"  content: {r['content']}") 
-#    print(f"  correct_answer: {r['correct_answer']}")
-#    print(f"  image_url: {r['image_url']}") 
-#    print()
+# print(f"問{r['number']}:")
+# print(f"  content: {r['content']}") 
+# print(f"  correct_answer: {r['correct_answer']}")
+# print(f"  image_url: {r['image_url']}") 
+# print()

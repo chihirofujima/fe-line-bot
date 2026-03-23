@@ -4,8 +4,8 @@ class LineBotController < ApplicationController
   protect_from_forgery except: [:callback]
 
   def callback
-    body      = request.body.read
-    signature = request.env['HTTP_X_LINE_SIGNATURE']
+    body = request.body.read
+    signature = request.env["HTTP_X_LINE_SIGNATURE"]
 
     begin
       events = parser.parse(body: body, signature: signature)
