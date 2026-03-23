@@ -4,7 +4,7 @@ class LineBotController < ApplicationController
   protect_from_forgery except: [:callback]
 
   def callback
-    body = request.body.read
+    body      = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
 
     begin
@@ -16,19 +16,16 @@ class LineBotController < ApplicationController
     events.each do |event|
       case event
       when Line::Bot::V2::Webhook::FollowEvent
-        # 友達追加時にDBに登録
         User.find_or_create_by(line_user_id: event.source.user_id)
+
       when Line::Bot::V2::Webhook::MessageEvent
         case event.message
         when Line::Bot::V2::Webhook::TextMessageContent
-          reply_request = Line::Bot::V2::MessagingApi::ReplyMessageRequest.new(
-            reply_token: event.reply_token,
-            messages: [
-              Line::Bot::V2::MessagingApi::TextMessage.new(text: "[ECHO] #{event.message.text}")
-            ]
-          )
-          client.reply_message(reply_message_request: reply_request)
+          handle_message(event)
         end
+
+      when Line::Bot::V2::Webhook::PostbackEvent
+        handle_postback(event)
       end
     end
 
@@ -36,6 +33,74 @@ class LineBotController < ApplicationController
   end
 
   private
+
+  # テキスト受信 → ランダムに問題を出題
+  def handle_message(event)
+    q             = QuestionLoader.random
+    choices       = QuestionLoader.parse_choices(q[:content])
+    question_text = q[:content].split("\n").first
+
+    flex = FlexBuilder.question(
+      question_id:   q[:number],
+      year:          q[:year],
+      question_text: question_text,
+      choices:       choices,
+      correct:       q[:correct_answer]
+    )
+
+    reply_flex(event.reply_token, flex)
+  end
+
+  # postback受信 → 正誤判定 or 次の問題
+  def handle_postback(event)
+    params = URI.decode_www_form(event.postback.data).to_h
+
+    case params['action']
+    when 'next'
+      handle_message(event)
+    when 'end'
+      reply_text(event.reply_token, 'お疲れ様でした！またいつでも挑戦してね。')
+    else
+      user_answer = params['answer']
+      question_id = params['question_id'].to_i
+      year        = params['year']
+      correct     = params['correct']
+      is_correct  = user_answer == correct
+
+      q    = QuestionLoader.find(year: year, number: question_id)
+      flex = FlexBuilder.result(
+        is_correct:      is_correct,
+        correct:         correct,
+        question_id:     question_id,
+        explanation_url: q&.dig(:explanation_url)
+      )
+
+      reply_flex(event.reply_token, flex)
+    end
+  end
+
+  def reply_flex(reply_token, flex)
+    request = Line::Bot::V2::MessagingApi::ReplyMessageRequest.new(
+      reply_token: reply_token,
+      messages: [
+        Line::Bot::V2::MessagingApi::FlexMessage.new(
+          alt_text: flex[:altText],
+          contents: flex[:contents]
+        )
+      ]
+    )
+    client.reply_message(reply_message_request: request)
+  end
+
+  def reply_text(reply_token, text)
+    request = Line::Bot::V2::MessagingApi::ReplyMessageRequest.new(
+      reply_token: reply_token,
+      messages: [
+        Line::Bot::V2::MessagingApi::TextMessage.new(text: text)
+      ]
+    )
+    client.reply_message(reply_message_request: request)
+  end
 
   def client
     @client ||= Line::Bot::V2::MessagingApi::ApiClient.new(
