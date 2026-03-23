@@ -27,6 +27,8 @@ gem "aws-sdk-s3", require: false  # S3に保存する場合
 # Bootstrap
 gem "bootstrap", "~> 5.3"
 
+gem "csv"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
