@@ -36,19 +36,25 @@ class LineBotController < ApplicationController
 
   # テキスト受信 → ランダムに問題を出題
   def handle_message(event)
-    q             = QuestionLoader.random
-    choices       = QuestionLoader.parse_choices(q[:content])
-    question_text = q[:content].split("\n").first
+    begin
+      q             = QuestionLoader.random
+      choices       = QuestionLoader.parse_choices(q[:content])
+      question_text = q[:content].split("\n").first
 
-    flex = FlexBuilder.question(
-      question_id:   q[:number],
-      year:          q[:year],
-      question_text: question_text,
-      choices:       choices,
-      correct:       q[:correct_answer]
-    )
+      flex = FlexBuilder.question(
+        question_id:   q[:number],
+        year:          q[:year],
+        question_text: question_text,
+        choices:       choices,
+        correct:       q[:correct_answer]
+      )
 
-    reply_flex(event.reply_token, flex)
+      reply_flex(event.reply_token, flex)
+    rescue => e
+      Rails.logger.error "handle_message error: #{e.class} #{e.message}"
+      Rails.logger.error e.backtrace.join("\n")
+      reply_text(event.reply_token, "エラー: #{e.message}")
+    end
   end
 
   # postback受信 → 正誤判定 or 次の問題
