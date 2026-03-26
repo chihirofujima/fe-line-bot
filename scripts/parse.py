@@ -61,6 +61,7 @@ def extract_questions(pdf_path):
         # ⑥ 「問X 」を除去
         content = re.sub(r'^問\d+\s+', '', text).strip()
         # ★テスト用（20問PDFの場合）
+        # 2019年以前（80問）の場合はここを80にすること！
         if num == 20:
             content = re.sub(r'(\nエ [^〔©]+).*$', r'\1', content, flags=re.DOTALL).strip()
         # 図・表・画像の目印を追加
@@ -96,8 +97,16 @@ def merge_and_export(questions, answers):
 
 # 確認出力
 # for r in results:
+<<<<<<< HEAD
 #    print(f"問{r['number']}:")
 #   print(f"  content: {r['content']}") 
 #   print(f"  correct_answer: {r['correct_answer']}")
 #   print(f"  image_url: {r['image_url']}") 
 #   print()
+=======
+# print(f"問{r['number']}:")
+# print(f"  content: {r['content']}") 
+# print(f"  correct_answer: {r['correct_answer']}")
+# print(f"  image_url: {r['image_url']}") 
+# print()
+>>>>>>> feature/add-flex-message
