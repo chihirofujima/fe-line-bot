@@ -97,16 +97,8 @@ def merge_and_export(questions, answers):
 
 # 確認出力
 # for r in results:
-<<<<<<< HEAD
-#    print(f"問{r['number']}:")
-#   print(f"  content: {r['content']}") 
-#   print(f"  correct_answer: {r['correct_answer']}")
-#   print(f"  image_url: {r['image_url']}") 
-#   print()
-=======
 # print(f"問{r['number']}:")
 # print(f"  content: {r['content']}") 
 # print(f"  correct_answer: {r['correct_answer']}")
 # print(f"  image_url: {r['image_url']}") 
 # print()
->>>>>>> feature/add-flex-message
