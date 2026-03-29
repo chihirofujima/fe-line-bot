@@ -4,14 +4,18 @@ class LineBotController < ApplicationController
   protect_from_forgery except: [ :callback ]
 
   def callback
+    Rails.logger.info "=== callback start ==="
     body = request.body.read
     signature = request.env["HTTP_X_LINE_SIGNATURE"]
 
     begin
       events = parser.parse(body: body, signature: signature)
     rescue Line::Bot::V2::WebhookParser::InvalidSignatureError
+      Rails.logger.error "=== Invalid Signature ==="
       return head :bad_request
     end
+
+    Rails.logger.info "=== events: #{events.inspect}"
 
     events.each do |event|
       case event
@@ -37,9 +41,10 @@ class LineBotController < ApplicationController
   # テキスト受信 → ランダムに問題を出題
   def handle_message(event)
     begin
-      q             = QuestionLoader.random
-      choices       = QuestionLoader.parse_choices(q[:content])
-      question_text = q[:content].split("\n").first
+      q = QuestionLoader.random
+      return reply_text(event.reply_token, "問題が見つかりませんでした") unless q
+      choices = { "ア" => "", "イ" => "", "ウ" => "", "エ" => "" }
+      question_text = q[:content]
 
       flex = FlexBuilder.question(
         question_id:   q[:number],
@@ -49,7 +54,9 @@ class LineBotController < ApplicationController
         correct:       q[:correct_answer]
       )
 
+      Rails.logger.info "=== flex built: #{flex.inspect}"
       reply_flex(event.reply_token, flex)
+      Rails.logger.info "=== reply_flex done"
     rescue => e
       Rails.logger.error "handle_message error: #{e.class} #{e.message}"
       Rails.logger.error e.backtrace.join("\n")
@@ -67,21 +74,23 @@ class LineBotController < ApplicationController
     when "end"
       reply_text(event.reply_token, "お疲れ様でした！またいつでも挑戦してね。")
     else
-      user_answer = params["answer"]
-      question_id = params["question_id"].to_i
-      year        = params["year"]
-      correct     = params["correct"]
-      is_correct  = user_answer == correct
+      # 正誤判定は一時スキップ
+      # user_answer = params["answer"]
+      # question_id = params["question_id"].to_i
+      # year        = params["year"]
+      # correct     = params["correct"]
+      # is_correct  = user_answer == correct
 
-      q    = QuestionLoader.find(year: year, number: question_id)
-      flex = FlexBuilder.result(
-        is_correct:      is_correct,
-        correct:         correct,
-        question_id:     question_id,
-        explanation_url: q&.dig(:explanation_url)
-      )
+      # q    = QuestionLoader.find(year: year, number: question_id)
+      #flex = FlexBuilder.result(
+        # is_correct:      is_correct,
+        # correct:         correct,
+        # question_id:     question_id,
+        # explanation_url: q&.dig(:explanation_url)
+      # )
 
-      reply_flex(event.reply_token, flex)
+      #reply_flex(event.reply_token, flex)
+      handle_message(event)
     end
   end
 
@@ -90,12 +99,16 @@ class LineBotController < ApplicationController
       reply_token: reply_token,
       messages: [
         Line::Bot::V2::MessagingApi::FlexMessage.new(
-          alt_text: flex[:altText],
-          contents: flex[:contents]
+          alt_text: flex["altText"],
+          contents: flex["contents"]
         )
       ]
     )
-    client.reply_message(reply_message_request: request)
+    response = client.reply_message(reply_message_request: request)
+    Rails.logger.info "=== reply response: #{response.inspect}"
+  rescue => e
+    Rails.logger.error "=== reply_flex error: #{e.class} #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
   end
 
   def reply_text(reply_token, text)
