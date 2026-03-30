@@ -32,7 +32,7 @@ module FlexBuilder
               "contents" => [
                 { "type" => "text", "text" => question_text, "wrap" => true, "size" => "md", "color" => "#333333" }
               ]
-            },
+            }
           ]
         },
         "footer" => {

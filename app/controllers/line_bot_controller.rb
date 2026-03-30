@@ -82,14 +82,14 @@ class LineBotController < ApplicationController
       # is_correct  = user_answer == correct
 
       # q    = QuestionLoader.find(year: year, number: question_id)
-      #flex = FlexBuilder.result(
-        # is_correct:      is_correct,
-        # correct:         correct,
-        # question_id:     question_id,
-        # explanation_url: q&.dig(:explanation_url)
+      # flex = FlexBuilder.result(
+      # is_correct:      is_correct,
+      # correct:         correct,
+      # question_id:     question_id,
+      # explanation_url: q&.dig(:explanation_url)
       # )
 
-      #reply_flex(event.reply_token, flex)
+      # reply_flex(event.reply_token, flex)
       handle_message(event)
     end
   end
