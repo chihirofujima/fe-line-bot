@@ -23,13 +23,11 @@ module QuestionLoader
     all.sample
   end
 
-  def self.find(year:, number:)
-    all.find { |q| q[:year] == year && q[:number] == number }
+  def self.default_choices
+    { "ア" => "", "イ" => "", "ウ" => "", "エ" => "" }
   end
 
-  def self.parse_choices(content)
-    content.split("\n").each_with_object({}) do |line, hash|
-      hash[$1] = $2.strip if line =~ /^([アイウエ])\s+(.*)/
-    end
+  def self.find(year:, number:)
+    all.find { |q| q[:year] == year && q[:number] == number }
   end
 end
