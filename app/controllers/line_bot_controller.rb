@@ -7,13 +7,20 @@ class LineBotController < ApplicationController
     Rails.logger.info "=== callback start ==="
     body = request.body.read
     signature = request.env["HTTP_X_LINE_SIGNATURE"]
+    # 読み込んだbodyが空でないかログで確認（デバッグ用）
+    Rails.logger.info "=== raw body length: #{body.length} ==="
 
     begin
       events = parser.parse(body: body, signature: signature)
     rescue Line::Bot::V2::WebhookParser::InvalidSignatureError
       Rails.logger.error "=== Invalid Signature ==="
       return head :bad_request
+    rescue => e
+      Rails.logger.error "=== Parsing Error: #{e.message} ==="
+      return head :bad_request
     end
+
+    head :ok
 
     Rails.logger.info "=== events: #{events.inspect}"
 
@@ -32,8 +39,6 @@ class LineBotController < ApplicationController
         handle_postback(event)
       end
     end
-
-    head :ok
   end
 
   private
@@ -66,6 +71,8 @@ class LineBotController < ApplicationController
 
   # postback受信 → 正誤判定 or 次の問題
   def handle_postback(event)
+    Rails.logger.info "=== handle_postback called ==="
+    Rails.logger.info "=== postback data: #{event.postback.data}"
     params = URI.decode_www_form(event.postback.data).to_h
 
     case params["action"]
@@ -74,23 +81,23 @@ class LineBotController < ApplicationController
     when "end"
       reply_text(event.reply_token, "お疲れ様でした！またいつでも挑戦してね。")
     else
-      # 正誤判定は一時スキップ
-      # user_answer = params["answer"]
-      # question_id = params["question_id"].to_i
-      # year        = params["year"]
-      # correct     = params["correct"]
-      # is_correct  = user_answer == correct
+      user_answer = params["answer"]
+      question_id = params["question_id"].to_i
+      year        = params["year"]
+      correct     = params["correct"]
+      is_correct  = user_answer == correct
 
-      # q    = QuestionLoader.find(year: year, number: question_id)
-      # flex = FlexBuilder.result(
-      # is_correct:      is_correct,
-      # correct:         correct,
-      # question_id:     question_id,
-      # explanation_url: q&.dig(:explanation_url)
-      # )
+      q    = QuestionLoader.find(year: year, number: question_id)
+      flex = FlexBuilder.result(
+        is_correct:      is_correct,
+        correct:         correct,
+        question_id:     question_id,
+        explanation_url: q&.dig(:explanation_url)
+      )
 
-      # reply_flex(event.reply_token, flex)
-      handle_message(event)
+      reply_flex(event.reply_token, flex)
+
+      send_next_question_push(event.source.user_id)
     end
   end
 
