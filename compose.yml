@@ -29,6 +29,8 @@ services:
       TZ: Asia/Tokyo
       LINE_CHANNEL_SECRET: ${LINE_CHANNEL_SECRET}
       LINE_CHANNEL_TOKEN: ${LINE_CHANNEL_TOKEN}
+      RAILS_LOG_TO_STDOUT: "true"
+      RAILS_ENV: development
     ports:
       - "3000:3000"
     depends_on:
