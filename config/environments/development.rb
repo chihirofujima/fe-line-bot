@@ -83,5 +83,4 @@ config.logger = ActiveSupport::Logger.new(STDOUT)
 config.logger.formatter = ::Logger::Formatter.new
 
 config.log_level = :debug
-
 end

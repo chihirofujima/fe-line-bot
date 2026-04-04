@@ -1,4 +1,4 @@
-require 'uri'
+require "uri"
 module FlexBuilder
   def self.question(question_id:, year:, question_text:, choices:, correct:)
     buttons = choices.keys.map do |label|
@@ -7,7 +7,7 @@ module FlexBuilder
         "action" => {
           "type"        => "postback",
           "label"       => label,
-          "data"        => URI.encode_www_form([["answer", label], ["question_id", question_id], ["year", year], ["correct", correct]]),
+          "data"        => URI.encode_www_form([ [ "answer", label ], [ "question_id", question_id ], [ "year", year ], [ "correct", correct ] ]),
           "displayText" => label
         },
         "style"  => "secondary",
