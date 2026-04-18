@@ -28,7 +28,7 @@ class LinePushJob < ApplicationJob
     }
 
     response = client.push_message(user.line_user_id, message)
-    
+
     unless response.is_a?(Net::HTTPOK)
       raise "LINE API error: #{response.body}"
     end

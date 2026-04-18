@@ -4,7 +4,7 @@ class LinePushService
 
   def self.push_daily_question
     question = Question.order("RANDOM()").first
-    
+
     message = build_message(question)
     send_push(message)
   end
