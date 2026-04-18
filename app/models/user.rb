@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validates :line_user_id, presence: true, uniqueness: true
 
   # 状態の定義（enum を使うと管理しやすい）
-  enum state, {
+  enum :state, {
     idle: 0,           # 待機中
     waiting_answer: 1  # 回答待ち（出題済み）
   }
