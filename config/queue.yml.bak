@@ -1,12 +1,17 @@
-production:
+default: &default
   dispatchers:
     - polling_interval: 1
       batch_size: 500
       recurring_tasks:
         line_push_daily:
           class: LinePushJob
-          schedule: "0 9 * * *"   # 毎日9時（UTC注意）
+          schedule: "0 11 * * *"   # 分 時 日 月 曜日 の順
           queue: default
+  workers:
+    - queues: "*"
+      threads: 3
+      processes: <%= ENV.fetch("JOB_CONCURRENCY", 1) %>
+      polling_interval: 0.1
 
 development:
   dispatchers:
@@ -16,7 +21,7 @@ development:
         line_push_daily:
           class: LinePushJob
           schedule: "0 0 * * *"
-          queue: default
+          queue: defaul
 
 test:
   <<: *default

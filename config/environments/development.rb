@@ -83,4 +83,6 @@ config.logger = ActiveSupport::Logger.new(STDOUT)
 config.logger.formatter = ::Logger::Formatter.new
 
 config.log_level = :debug
+# Solid Queue の接続先を「queue」という名前のDB設定に指定
+config.solid_queue.connects_to = { database: { writing: :queue } }
 end

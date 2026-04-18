@@ -31,6 +31,8 @@ services:
       LINE_CHANNEL_TOKEN: ${LINE_CHANNEL_TOKEN}
       RAILS_LOG_TO_STDOUT: "true"
       RAILS_ENV: development
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: 1234
     ports:
       - "3000:3000"
     depends_on:

@@ -29,6 +29,10 @@ gem "bootstrap", "~> 5.3"
 
 gem "csv"
 
+gem "solid_queue"
+
+gem "mission_control-jobs"
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
