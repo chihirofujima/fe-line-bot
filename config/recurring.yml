@@ -8,8 +8,14 @@
 #     command: "SoftDeletedRecord.due.delete_all"
 #     priority: 2
 #     schedule: at 5am every day
-
 production:
-  clear_solid_queue_finished_jobs:
-    command: "SolidQueue::Job.clear_finished_in_batches(sleep_between_batches: 0.3)"
-    schedule: every hour at minute 12
+  scheduled_push_job:
+    class: ScheduledPushJob
+    schedule: "30 1 * * *"   # 毎日9時（UTC）= 日本時間18時
+    queue: default
+
+development:
+  scheduled_push_job:
+    class: ScheduledPushJob
+    schedule: "* */3 * * *"   # 動作確認用：毎分実行
+    queue: default
