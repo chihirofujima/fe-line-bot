@@ -1,18 +1,40 @@
 require "uri"
+
 module FlexBuilder
   def self.question(question_id:, year:, question_text:, choices:, correct:)
-    buttons = choices.keys.map do |label|
+    rows = choices.map do |label, text|
       {
-        "type"   => "button",
-        "action" => {
+        "type"     => "box",
+        "layout"   => "horizontal",
+        "margin"   => "md",
+        "action"   => {
           "type"        => "postback",
           "label"       => label,
-          "data"        => URI.encode_www_form([ [ "answer", label ], [ "question_id", question_id ], [ "year", year ], [ "correct", correct ] ]),
+          "data"        => URI.encode_www_form([
+            ["answer", label],
+            ["question_id", question_id],
+            ["year", year],
+            ["correct", correct]
+          ]),
           "displayText" => label
         },
-        "style"  => "secondary",
-        "height" => "sm",
-        "flex"   => 1
+        "contents" => [
+          {
+            "type"  => "text",
+            "text"  => label,
+            "size"  => "sm",
+            "color" => "#555555",
+            "flex"  => 1
+          },
+          {
+            "type"  => "text",
+            "text"  => text.to_s,
+            "size"  => "sm",
+            "color" => "#111111",
+            "flex"  => 5,
+            "wrap"  => true
+          }
+        ]
       }
     end
 
@@ -22,26 +44,19 @@ module FlexBuilder
       "contents" => {
         "type" => "bubble",
         "body" => {
-          "type"     => "box",
-          "layout"   => "vertical",
-          "spacing"  => "none",
-          "contents" => [
+          "type"       => "box",
+          "layout"     => "vertical",
+          "paddingAll" => "16px",
+          "contents"   => [
             {
-              "type"     => "box",
-              "layout"   => "vertical",
-              "paddingAll" => "16px",
-              "contents" => [
-                { "type" => "text", "text" => question_text, "wrap" => true, "size" => "md", "color" => "#333333" }
-              ]
-            }
-          ]
-        },
-        "footer" => {
-          "type"     => "box",
-          "layout"   => "horizontal",
-          "spacing"  => "sm",
-          "paddingAll" => "12px",
-          "contents" => buttons
+              "type"  => "text",
+              "text"  => question_text,
+              "wrap"  => true,
+              "size"  => "sm",
+              "color" => "#333333"
+            },
+            { "type" => "separator", "margin" => "md" }
+          ] + rows
         }
       }
     }
@@ -49,7 +64,7 @@ module FlexBuilder
 
   def self.result(is_correct:, correct:, question_id:, explanation_url: nil)
     result_text = is_correct \
-      ? "✅ 正解！ 正解は #{correct} です"
+      ? "⭕ 正解！ 正解は #{correct} です"
       : "❌ 不正解... 正解は #{correct} でした"
 
     {
@@ -58,24 +73,64 @@ module FlexBuilder
       "contents" => {
         "type" => "bubble",
         "body" => {
+          "type"       => "box",
+          "layout"     => "vertical",
+          "spacing"    => "md",
+          "contents"   => [
+            {
+              "type"       => "box",
+              "layout"     => "vertical",
+              "paddingAll" => "16px",
+              "contents"   => [
+                {
+                  "type"  => "text",
+                  "text"  => result_text,
+                  "wrap"  => true,
+                  "size"  => "md",
+                  "color" => "#333333"
+                }
+              ]
+            }
+          ]
+        },
+        "footer" => {
           "type"     => "box",
           "layout"   => "vertical",
-          "spacing"  => "none",
+          "spacing"  => "sm",
           "contents" => [
             {
-              "type"     => "box",
-              "layout"   => "vertical",
-              "paddingAll" => "16px",
-              "contents" => [
-                { "type" => "text", "text" => result_text, "wrap" => true, "size" => "md", "color" => "#333333" }
-              ]
+              "type"   => "button",
+              "style"  => "primary",
+              "height" => "sm",
+              "action" => {
+                "type"  => "uri",
+                "label" => "解説を見る",
+                "uri"   => explanation_url || "https://www.fe-siken.com/fe/"
+              }
             },
-            { "type" => "separator" },
-            { "type" => "button", "action" => { "type" => "uri", "label" => "解説リンク", "uri" => explanation_url || "https://example.com" }, "style" => "link", "height" => "sm" },
-            { "type" => "separator" },
-            { "type" => "button", "action" => { "type" => "postback", "label" => "次の問題へ", "data" => "action=next", "displayText" => "次の問題へ" }, "style" => "link", "height" => "sm" },
-            { "type" => "separator" },
-            { "type" => "button", "action" => { "type" => "postback", "label" => "終了する", "data" => "action=end", "displayText" => "終了する" }, "style" => "link", "height" => "sm", "color" => "#aaaaaa" }
+            {
+              "type"   => "button",
+              "style"  => "secondary",
+              "height" => "sm",
+              "action" => {
+                "type"        => "postback",
+                "label"       => "次の問題へ",
+                "data"        => "action=next",
+                "displayText" => "次の問題へ"
+              }
+            },
+            {
+              "type"   => "button",
+              "style"  => "secondary",
+              "height" => "sm",
+              "color"  => "#aaaaaa",
+              "action" => {
+                "type"        => "postback",
+                "label"       => "終了する",
+                "data"        => "action=end",
+                "displayText" => "終了する"
+              }
+            }
           ]
         }
       }

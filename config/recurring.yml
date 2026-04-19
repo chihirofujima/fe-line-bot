@@ -17,5 +17,5 @@ production:
 development:
   scheduled_push_job:
     class: ScheduledPushJob
-    schedule: "* */3 * * *"   # 動作確認用：毎分実行
+    schedule: "*/10 * * * *"   # 動作確認用：10分実行
     queue: default

@@ -13,7 +13,13 @@ class ScheduledPushJob < ApplicationJob
     q = QuestionLoader.random
     return Rails.logger.error "[ScheduledPushJob] 問題が見つかりません" unless q
 
-    choices = { "ア" => "", "イ" => "", "ウ" => "", "エ" => "" }
+    choices = {
+     "ア" => q[:choice_1],
+     "イ" => q[:choice_2],
+     "ウ" => q[:choice_3],
+     "エ" => q[:choice_4]
+    }
+
     flex = FlexBuilder.question(
       question_id:   q[:number],
       year:          q[:year],

@@ -47,8 +47,16 @@ class LineBotController < ApplicationController
   def handle_message(event)
     begin
       q = QuestionLoader.random
+      
+      Rails.logger.info "=== q[:year]: #{q[:year]}"
+
       return reply_text(event.reply_token, "問題が見つかりませんでした") unless q
-      choices = { "ア" => "", "イ" => "", "ウ" => "", "エ" => "" }
+      choices = {
+        "ア" => q[:choice_1],
+        "イ" => q[:choice_2],
+        "ウ" => q[:choice_3],
+        "エ" => q[:choice_4]
+      }
       question_text = q[:content]
 
       flex = FlexBuilder.question(
@@ -86,8 +94,14 @@ class LineBotController < ApplicationController
       year        = params["year"]
       correct     = params["correct"]
       is_correct  = user_answer == correct
+      
+      Rails.logger.info "=== year: #{year}, question_id: #{question_id}"
 
       q    = QuestionLoader.find(year: year, number: question_id)
+      
+      Rails.logger.info "=== q: #{q.inspect}"
+  Rails.logger.info "=== explanation_url: #{q&.dig(:explanation_url)}"
+
       flex = FlexBuilder.result(
         is_correct:      is_correct,
         correct:         correct,
@@ -97,7 +111,7 @@ class LineBotController < ApplicationController
 
       reply_flex(event.reply_token, flex)
 
-      send_next_question_push(event.source.user_id)
+      send_next_question_push(event.source.user_id) 
     end
   end
 
