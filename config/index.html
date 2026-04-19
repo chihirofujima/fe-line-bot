@@ -1,3 +1,10 @@
+HTTP/1.1 500 Internal Server Error
+content-type: text/html; charset=UTF-8
+x-request-id: f60df0f6-e21c-4cdf-b4c0-70f999d6112c
+x-runtime: 0.272347
+server-timing: start_processing.action_controller;dur=0.01, process_action.action_controller;dur=14.28, render_partial.action_view;dur=6.57, render_template.action_view;dur=21.30, render_layout.action_view;dur=16.72
+content-length: 136719
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -280,45 +287,46 @@
 
   <!-- BEGIN /usr/local/bundle/gems/actionpack-7.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb --><header>
   <h1>
-    ArgumentError
+    SyntaxError
       in LineBotController#callback
   </h1>
 </header>
 
 <main role="main" id="container">
   <!-- BEGIN /usr/local/bundle/gems/actionpack-7.2.3/lib/action_dispatch/middleware/templates/rescues/_message_and_suggestions.html.erb -->  <div class="exception-message">
-    <div class="message">the input of URI.decode_www_form must be ASCII only string</div>
+    <div class="message">/myapp/app/services/flex_builder.rb:117: syntax errors found
+<br />  115 |     }
+<br />  116 |   }
+<br />&gt; 117 | end
+<br />      |    ^ unexpected end-of-input, assuming it is closing the parent top level context
+<br />&gt; 118 | 
+<br />      | ^ expected an `end` to close the `module` statement
+</div>
   </div>
 <!-- END /usr/local/bundle/gems/actionpack-7.2.3/lib/action_dispatch/middleware/templates/rescues/_message_and_suggestions.html.erb -->
   <!-- BEGIN /usr/local/bundle/gems/actionpack-7.2.3/lib/action_dispatch/middleware/templates/rescues/_actions.html.erb -->
 <!-- END /usr/local/bundle/gems/actionpack-7.2.3/lib/action_dispatch/middleware/templates/rescues/_actions.html.erb -->
 
   <!-- BEGIN /usr/local/bundle/gems/actionpack-7.2.3/lib/action_dispatch/middleware/templates/rescues/_source.html.erb -->
-    <div class="source hidden" id="frame-source-0-0">
+    <div class="source " id="frame-source-0-0">
       <div class="info">
-        Extracted source (around line <strong>#582</strong>):
+        Extracted source (around line <strong>#117</strong>):
       </div>
       <div class="data">
         <table cellpadding="0" cellspacing="0" class="lines">
           <tr>
             <td>
               <pre class="line_numbers">
-<span>580</span>
-<span>581</span>
-<span>582</span>
-<span>583</span>
-<span>584</span>
-<span>585</span>
+<span>115</span>
+<span>116</span>
+<span>117</span>
               </pre>
             </td>
 <td width="100%">
 <pre>
-<div class="line">  #
-</div><div class="line">  def self.decode_www_form(str, enc=Encoding::UTF_8, separator: &#39;&amp;&#39;, use__charset_: false, isindex: false)
-</div><div class="line active">    <span class="error_highlight">raise</span> ArgumentError, &quot;the input of #{self.name}.#{__method__} must be ASCII only string&quot; unless str.ascii_only?
-</div><div class="line">    ary = []
-</div><div class="line">    return ary if str.empty?
-</div><div class="line">    enc = Encoding.find(enc)
+<div class="line">    }
+</div><div class="line">  }
+</div><div class="line active">end
 </div>
 </pre>
 </td>
@@ -326,31 +334,95 @@
         </table>
       </div>
     </div>
-    <div class="source " id="frame-source-0-1">
+    <div class="source hidden" id="frame-source-0-7">
       <div class="info">
-        Extracted source (around line <strong>#76</strong>):
+        Extracted source (around line <strong>#82</strong>):
       </div>
       <div class="data">
         <table cellpadding="0" cellspacing="0" class="lines">
           <tr>
             <td>
               <pre class="line_numbers">
-<span>74</span>
-<span>75</span>
-<span>76</span>
-<span>77</span>
-<span>78</span>
-<span>79</span>
+<span>80</span>
+<span>81</span>
+<span>82</span>
+<span>83</span>
+<span>84</span>
+<span>85</span>
               </pre>
             </td>
 <td width="100%">
 <pre>
-<div class="line">    Rails.logger.info &quot;=== handle_postback called ===&quot;
-</div><div class="line">    Rails.logger.info &quot;=== postback data: #{event.postback.data}&quot;
-</div><div class="line active">    params = URI<span class="error_highlight">.decode_www_form</span>(event.postback.data).to_h
+<div class="line">          end
+</div><div class="line">        end
+</div><div class="line active">        kernel_class<span class="error_highlight">.send</span>(:no_warning_require, name)
+</div><div class="line">      end
+</div><div class="line">      if kernel_class == ::Kernel
+</div><div class="line">        kernel_class.send(:private, :require)
+</div>
+</pre>
+</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="source hidden" id="frame-source-0-8">
+      <div class="info">
+        Extracted source (around line <strong>#82</strong>):
+      </div>
+      <div class="data">
+        <table cellpadding="0" cellspacing="0" class="lines">
+          <tr>
+            <td>
+              <pre class="line_numbers">
+<span>80</span>
+<span>81</span>
+<span>82</span>
+<span>83</span>
+<span>84</span>
+<span>85</span>
+              </pre>
+            </td>
+<td width="100%">
+<pre>
+<div class="line">          end
+</div><div class="line">        end
+</div><div class="line active">        kernel_class<span class="error_highlight">.send</span>(:no_warning_require, name)
+</div><div class="line">      end
+</div><div class="line">      if kernel_class == ::Kernel
+</div><div class="line">        kernel_class.send(:private, :require)
+</div>
+</pre>
+</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="source hidden" id="frame-source-0-9">
+      <div class="info">
+        Extracted source (around line <strong>#33</strong>):
+      </div>
+      <div class="data">
+        <table cellpadding="0" cellspacing="0" class="lines">
+          <tr>
+            <td>
+              <pre class="line_numbers">
+<span>31</span>
+<span>32</span>
+<span>33</span>
+<span>34</span>
+<span>35</span>
+<span>36</span>
+              </pre>
+            </td>
+<td width="100%">
+<pre>
+<div class="line">    else
+</div><div class="line">      # Note that require registers to $LOADED_FEATURES while load does not.
+</div><div class="line active">      ret = <span class="error_highlight">require_without_bootsnap</span>(resolved)
 </div><div class="line">
-</div><div class="line">    case params[&quot;action&quot;]
-</div><div class="line">    when &quot;next&quot;
+</div><div class="line">      # The file we required may have unloaded the cache
+</div><div class="line">      Bootsnap::LoadPathCache.loaded_features_index&amp;.register(string_path, resolved)
 </div>
 </pre>
 </td>
@@ -358,31 +430,95 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-2">
+    <div class="source hidden" id="frame-source-0-10">
       <div class="info">
-        Extracted source (around line <strong>#39</strong>):
+        Extracted source (around line <strong>#26</strong>):
       </div>
       <div class="data">
         <table cellpadding="0" cellspacing="0" class="lines">
           <tr>
             <td>
               <pre class="line_numbers">
+<span>24</span>
+<span>25</span>
+<span>26</span>
+<span>27</span>
+<span>28</span>
+<span>29</span>
+              </pre>
+            </td>
+<td width="100%">
+<pre>
+<div class="line">    if loader = Zeitwerk::Registry.autoloads.registered?(path)
+</div><div class="line">      if path.end_with?(&quot;.rb&quot;)
+</div><div class="line active">        required = <span class="error_highlight">zeitwerk_original_require</span>(path)
+</div><div class="line">        loader.__on_file_autoloaded(path) if required
+</div><div class="line">        required
+</div><div class="line">      else
+</div>
+</pre>
+</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="source hidden" id="frame-source-0-11">
+      <div class="info">
+        Extracted source (around line <strong>#57</strong>):
+      </div>
+      <div class="data">
+        <table cellpadding="0" cellspacing="0" class="lines">
+          <tr>
+            <td>
+              <pre class="line_numbers">
+<span>55</span>
+<span>56</span>
+<span>57</span>
+<span>58</span>
+<span>59</span>
+<span>60</span>
+              </pre>
+            </td>
+<td width="100%">
+<pre>
+<div class="line">      question_text = q[:content]
+</div><div class="line">
+</div><div class="line active">      flex = <span class="error_highlight">FlexBuilder</span>.question(
+</div><div class="line">        question_id:   q[:number],
+</div><div class="line">        year:          q[:year],
+</div><div class="line">        question_text: question_text,
+</div>
+</pre>
+</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="source hidden" id="frame-source-0-12">
+      <div class="info">
+        Extracted source (around line <strong>#35</strong>):
+      </div>
+      <div class="data">
+        <table cellpadding="0" cellspacing="0" class="lines">
+          <tr>
+            <td>
+              <pre class="line_numbers">
+<span>33</span>
+<span>34</span>
+<span>35</span>
+<span>36</span>
 <span>37</span>
 <span>38</span>
-<span>39</span>
-<span>40</span>
-<span>41</span>
-<span>42</span>
               </pre>
             </td>
 <td width="100%">
 <pre>
-<div class="line">
+<div class="line">        case event.message
+</div><div class="line">        when Line::Bot::V2::Webhook::TextMessageContent
+</div><div class="line active">          <span class="error_highlight">handle_message</span>(event)
+</div><div class="line">        end
+</div><div class="line">
 </div><div class="line">      when Line::Bot::V2::Webhook::PostbackEvent
-</div><div class="line active">        <span class="error_highlight">handle_postback</span>(event)
-</div><div class="line">      end
-</div><div class="line">    end
-</div><div class="line">  end
 </div>
 </pre>
 </td>
@@ -390,7 +526,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-3">
+    <div class="source hidden" id="frame-source-0-13">
       <div class="info">
         Extracted source (around line <strong>#27</strong>):
       </div>
@@ -422,7 +558,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-4">
+    <div class="source hidden" id="frame-source-0-14">
       <div class="info">
         Extracted source (around line <strong>#27</strong>):
       </div>
@@ -454,7 +590,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-5">
+    <div class="source hidden" id="frame-source-0-15">
       <div class="info">
         Extracted source (around line <strong>#8</strong>):
       </div>
@@ -486,7 +622,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-6">
+    <div class="source hidden" id="frame-source-0-16">
       <div class="info">
         Extracted source (around line <strong>#215</strong>):
       </div>
@@ -518,7 +654,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-7">
+    <div class="source hidden" id="frame-source-0-17">
       <div class="info">
         Extracted source (around line <strong>#193</strong>):
       </div>
@@ -550,7 +686,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-8">
+    <div class="source hidden" id="frame-source-0-18">
       <div class="info">
         Extracted source (around line <strong>#261</strong>):
       </div>
@@ -582,7 +718,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-9">
+    <div class="source hidden" id="frame-source-0-19">
       <div class="info">
         Extracted source (around line <strong>#121</strong>):
       </div>
@@ -614,7 +750,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-10">
+    <div class="source hidden" id="frame-source-0-20">
       <div class="info">
         Extracted source (around line <strong>#24</strong>):
       </div>
@@ -646,7 +782,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-11">
+    <div class="source hidden" id="frame-source-0-21">
       <div class="info">
         Extracted source (around line <strong>#10</strong>):
       </div>
@@ -676,7 +812,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-12">
+    <div class="source hidden" id="frame-source-0-22">
       <div class="info">
         Extracted source (around line <strong>#130</strong>):
       </div>
@@ -708,7 +844,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-13">
+    <div class="source hidden" id="frame-source-0-23">
       <div class="info">
         Extracted source (around line <strong>#25</strong>):
       </div>
@@ -740,7 +876,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-14">
+    <div class="source hidden" id="frame-source-0-24">
       <div class="info">
         Extracted source (around line <strong>#71</strong>):
       </div>
@@ -772,7 +908,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-15">
+    <div class="source hidden" id="frame-source-0-25">
       <div class="info">
         Extracted source (around line <strong>#130</strong>):
       </div>
@@ -804,7 +940,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-16">
+    <div class="source hidden" id="frame-source-0-26">
       <div class="info">
         Extracted source (around line <strong>#130</strong>):
       </div>
@@ -836,7 +972,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-17">
+    <div class="source hidden" id="frame-source-0-27">
       <div class="info">
         Extracted source (around line <strong>#141</strong>):
       </div>
@@ -868,7 +1004,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-18">
+    <div class="source hidden" id="frame-source-0-28">
       <div class="info">
         Extracted source (around line <strong>#260</strong>):
       </div>
@@ -900,7 +1036,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-19">
+    <div class="source hidden" id="frame-source-0-29">
       <div class="info">
         Extracted source (around line <strong>#27</strong>):
       </div>
@@ -932,7 +1068,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-20">
+    <div class="source hidden" id="frame-source-0-30">
       <div class="info">
         Extracted source (around line <strong>#77</strong>):
       </div>
@@ -964,7 +1100,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-21">
+    <div class="source hidden" id="frame-source-0-31">
       <div class="info">
         Extracted source (around line <strong>#210</strong>):
       </div>
@@ -996,7 +1132,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-22">
+    <div class="source hidden" id="frame-source-0-32">
       <div class="info">
         Extracted source (around line <strong>#58</strong>):
       </div>
@@ -1028,7 +1164,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-23">
+    <div class="source hidden" id="frame-source-0-33">
       <div class="info">
         Extracted source (around line <strong>#210</strong>):
       </div>
@@ -1060,7 +1196,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-24">
+    <div class="source hidden" id="frame-source-0-34">
       <div class="info">
         Extracted source (around line <strong>#76</strong>):
       </div>
@@ -1092,7 +1228,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-25">
+    <div class="source hidden" id="frame-source-0-35">
       <div class="info">
         Extracted source (around line <strong>#259</strong>):
       </div>
@@ -1124,7 +1260,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-26">
+    <div class="source hidden" id="frame-source-0-36">
       <div class="info">
         Extracted source (around line <strong>#39</strong>):
       </div>
@@ -1156,7 +1292,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-27">
+    <div class="source hidden" id="frame-source-0-37">
       <div class="info">
         Extracted source (around line <strong>#152</strong>):
       </div>
@@ -1188,7 +1324,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-28">
+    <div class="source hidden" id="frame-source-0-38">
       <div class="info">
         Extracted source (around line <strong>#40</strong>):
       </div>
@@ -1220,7 +1356,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-29">
+    <div class="source hidden" id="frame-source-0-39">
       <div class="info">
         Extracted source (around line <strong>#252</strong>):
       </div>
@@ -1252,7 +1388,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-30">
+    <div class="source hidden" id="frame-source-0-40">
       <div class="info">
         Extracted source (around line <strong>#335</strong>):
       </div>
@@ -1284,7 +1420,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-31">
+    <div class="source hidden" id="frame-source-0-41">
       <div class="info">
         Extracted source (around line <strong>#67</strong>):
       </div>
@@ -1316,7 +1452,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-32">
+    <div class="source hidden" id="frame-source-0-42">
       <div class="info">
         Extracted source (around line <strong>#50</strong>):
       </div>
@@ -1348,7 +1484,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-33">
+    <div class="source hidden" id="frame-source-0-43">
       <div class="info">
         Extracted source (around line <strong>#53</strong>):
       </div>
@@ -1380,7 +1516,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-34">
+    <div class="source hidden" id="frame-source-0-44">
       <div class="info">
         Extracted source (around line <strong>#133</strong>):
       </div>
@@ -1412,7 +1548,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-35">
+    <div class="source hidden" id="frame-source-0-45">
       <div class="info">
         Extracted source (around line <strong>#126</strong>):
       </div>
@@ -1444,7 +1580,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-36">
+    <div class="source hidden" id="frame-source-0-46">
       <div class="info">
         Extracted source (around line <strong>#126</strong>):
       </div>
@@ -1476,7 +1612,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-37">
+    <div class="source hidden" id="frame-source-0-47">
       <div class="info">
         Extracted source (around line <strong>#34</strong>):
       </div>
@@ -1508,7 +1644,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-38">
+    <div class="source hidden" id="frame-source-0-48">
       <div class="info">
         Extracted source (around line <strong>#896</strong>):
       </div>
@@ -1540,7 +1676,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-39">
+    <div class="source hidden" id="frame-source-0-49">
       <div class="info">
         Extracted source (around line <strong>#20</strong>):
       </div>
@@ -1572,7 +1708,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-40">
+    <div class="source hidden" id="frame-source-0-50">
       <div class="info">
         Extracted source (around line <strong>#29</strong>):
       </div>
@@ -1604,7 +1740,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-41">
+    <div class="source hidden" id="frame-source-0-51">
       <div class="info">
         Extracted source (around line <strong>#44</strong>):
       </div>
@@ -1636,7 +1772,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-42">
+    <div class="source hidden" id="frame-source-0-52">
       <div class="info">
         Extracted source (around line <strong>#15</strong>):
       </div>
@@ -1668,7 +1804,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-43">
+    <div class="source hidden" id="frame-source-0-53">
       <div class="info">
         Extracted source (around line <strong>#38</strong>):
       </div>
@@ -1700,7 +1836,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-44">
+    <div class="source hidden" id="frame-source-0-54">
       <div class="info">
         Extracted source (around line <strong>#38</strong>):
       </div>
@@ -1732,7 +1868,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-45">
+    <div class="source hidden" id="frame-source-0-55">
       <div class="info">
         Extracted source (around line <strong>#274</strong>):
       </div>
@@ -1764,7 +1900,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-46">
+    <div class="source hidden" id="frame-source-0-56">
       <div class="info">
         Extracted source (around line <strong>#268</strong>):
       </div>
@@ -1796,7 +1932,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-47">
+    <div class="source hidden" id="frame-source-0-57">
       <div class="info">
         Extracted source (around line <strong>#704</strong>):
       </div>
@@ -1828,7 +1964,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-48">
+    <div class="source hidden" id="frame-source-0-58">
       <div class="info">
         Extracted source (around line <strong>#674</strong>):
       </div>
@@ -1860,7 +1996,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-49">
+    <div class="source hidden" id="frame-source-0-59">
       <div class="info">
         Extracted source (around line <strong>#31</strong>):
       </div>
@@ -1892,7 +2028,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-50">
+    <div class="source hidden" id="frame-source-0-60">
       <div class="info">
         Extracted source (around line <strong>#101</strong>):
       </div>
@@ -1924,7 +2060,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-51">
+    <div class="source hidden" id="frame-source-0-61">
       <div class="info">
         Extracted source (around line <strong>#30</strong>):
       </div>
@@ -1956,7 +2092,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-52">
+    <div class="source hidden" id="frame-source-0-62">
       <div class="info">
         Extracted source (around line <strong>#16</strong>):
       </div>
@@ -1988,7 +2124,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-53">
+    <div class="source hidden" id="frame-source-0-63">
       <div class="info">
         Extracted source (around line <strong>#18</strong>):
       </div>
@@ -2020,7 +2156,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-54">
+    <div class="source hidden" id="frame-source-0-64">
       <div class="info">
         Extracted source (around line <strong>#31</strong>):
       </div>
@@ -2052,7 +2188,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-55">
+    <div class="source hidden" id="frame-source-0-65">
       <div class="info">
         Extracted source (around line <strong>#132</strong>):
       </div>
@@ -2084,7 +2220,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-56">
+    <div class="source hidden" id="frame-source-0-66">
       <div class="info">
         Extracted source (around line <strong>#19</strong>):
       </div>
@@ -2116,7 +2252,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-57">
+    <div class="source hidden" id="frame-source-0-67">
       <div class="info">
         Extracted source (around line <strong>#17</strong>):
       </div>
@@ -2148,7 +2284,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-58">
+    <div class="source hidden" id="frame-source-0-68">
       <div class="info">
         Extracted source (around line <strong>#17</strong>):
       </div>
@@ -2180,7 +2316,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-59">
+    <div class="source hidden" id="frame-source-0-69">
       <div class="info">
         Extracted source (around line <strong>#32</strong>):
       </div>
@@ -2212,7 +2348,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-60">
+    <div class="source hidden" id="frame-source-0-70">
       <div class="info">
         Extracted source (around line <strong>#41</strong>):
       </div>
@@ -2244,7 +2380,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-61">
+    <div class="source hidden" id="frame-source-0-71">
       <div class="info">
         Extracted source (around line <strong>#29</strong>):
       </div>
@@ -2276,7 +2412,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-62">
+    <div class="source hidden" id="frame-source-0-72">
       <div class="info">
         Extracted source (around line <strong>#17</strong>):
       </div>
@@ -2308,7 +2444,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-63">
+    <div class="source hidden" id="frame-source-0-73">
       <div class="info">
         Extracted source (around line <strong>#96</strong>):
       </div>
@@ -2340,7 +2476,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-64">
+    <div class="source hidden" id="frame-source-0-74">
       <div class="info">
         Extracted source (around line <strong>#33</strong>):
       </div>
@@ -2372,7 +2508,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-65">
+    <div class="source hidden" id="frame-source-0-75">
       <div class="info">
         Extracted source (around line <strong>#28</strong>):
       </div>
@@ -2404,7 +2540,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-66">
+    <div class="source hidden" id="frame-source-0-76">
       <div class="info">
         Extracted source (around line <strong>#24</strong>):
       </div>
@@ -2436,7 +2572,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-67">
+    <div class="source hidden" id="frame-source-0-77">
       <div class="info">
         Extracted source (around line <strong>#29</strong>):
       </div>
@@ -2468,7 +2604,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-68">
+    <div class="source hidden" id="frame-source-0-78">
       <div class="info">
         Extracted source (around line <strong>#61</strong>):
       </div>
@@ -2500,7 +2636,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-69">
+    <div class="source hidden" id="frame-source-0-79">
       <div class="info">
         Extracted source (around line <strong>#26</strong>):
       </div>
@@ -2532,7 +2668,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-70">
+    <div class="source hidden" id="frame-source-0-80">
       <div class="info">
         Extracted source (around line <strong>#60</strong>):
       </div>
@@ -2564,7 +2700,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-71">
+    <div class="source hidden" id="frame-source-0-81">
       <div class="info">
         Extracted source (around line <strong>#16</strong>):
       </div>
@@ -2596,7 +2732,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-72">
+    <div class="source hidden" id="frame-source-0-82">
       <div class="info">
         Extracted source (around line <strong>#27</strong>):
       </div>
@@ -2628,7 +2764,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-73">
+    <div class="source hidden" id="frame-source-0-83">
       <div class="info">
         Extracted source (around line <strong>#131</strong>):
       </div>
@@ -2660,7 +2796,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-74">
+    <div class="source hidden" id="frame-source-0-84">
       <div class="info">
         Extracted source (around line <strong>#535</strong>):
       </div>
@@ -2692,7 +2828,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-75">
+    <div class="source hidden" id="frame-source-0-85">
       <div class="info">
         Extracted source (around line <strong>#296</strong>):
       </div>
@@ -2724,7 +2860,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-76">
+    <div class="source hidden" id="frame-source-0-86">
       <div class="info">
         Extracted source (around line <strong>#103</strong>):
       </div>
@@ -2756,7 +2892,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-77">
+    <div class="source hidden" id="frame-source-0-87">
       <div class="info">
         Extracted source (around line <strong>#355</strong>):
       </div>
@@ -2788,7 +2924,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-78">
+    <div class="source hidden" id="frame-source-0-88">
       <div class="info">
         Extracted source (around line <strong>#102</strong>):
       </div>
@@ -2820,7 +2956,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-79">
+    <div class="source hidden" id="frame-source-0-89">
       <div class="info">
         Extracted source (around line <strong>#503</strong>):
       </div>
@@ -2852,7 +2988,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-80">
+    <div class="source hidden" id="frame-source-0-90">
       <div class="info">
         Extracted source (around line <strong>#262</strong>):
       </div>
@@ -2884,7 +3020,7 @@
         </table>
       </div>
     </div>
-    <div class="source hidden" id="frame-source-0-81">
+    <div class="source hidden" id="frame-source-0-91">
       <div class="info">
         Extracted source (around line <strong>#182</strong>):
       </div>
@@ -2927,19 +3063,23 @@
 
     <div id="Application-Trace-0" style="display: block;">
       <code class="traces">
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="1" href="#">
-            app/controllers/line_bot_controller.rb:76:in &#39;LineBotController#handle_postback&#39;
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="0" href="#">
+            app/services/flex_builder.rb:117: syntax errors found
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="2" href="#">
-            app/controllers/line_bot_controller.rb:39:in &#39;block in LineBotController#callback&#39;
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="11" href="#">
+            app/controllers/line_bot_controller.rb:57:in &#39;LineBotController#handle_message&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="3" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="12" href="#">
+            app/controllers/line_bot_controller.rb:35:in &#39;block in LineBotController#callback&#39;
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="13" href="#">
             app/controllers/line_bot_controller.rb:27:in &#39;Array#each&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="4" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="14" href="#">
             app/controllers/line_bot_controller.rb:27:in &#39;LineBotController#callback&#39;
           </a>
           <br>
@@ -2947,315 +3087,351 @@
     </div>
     <div id="Framework-Trace-0" style="display: none;">
       <code class="traces">
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="0" href="#">
-            /usr/local/lib/ruby/3.4.0/uri/common.rb:582:in &#39;URI.decode_www_form&#39;
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="1" href="#">
+              115 |     }
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="5" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="2" href="#">
+              116 |   }
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="3" href="#">
+            &gt; 117 | end
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="4" href="#">
+                  |    ^ unexpected end-of-input, assuming it is closing the parent top level context
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="5" href="#">
+            &gt; 118 | 
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="6" href="#">
+                  | ^ expected an `end` to close the `module` statement
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="7" href="#">
+            /usr/local/lib/ruby/3.4.0/bundled_gems.rb:82:in &#39;Kernel.require&#39;
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="8" href="#">
+            /usr/local/lib/ruby/3.4.0/bundled_gems.rb:82:in &#39;block (2 levels) in Kernel#replace_require&#39;
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="9" href="#">
+            bootsnap (1.23.0) lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:33:in &#39;Kernel#require&#39;
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="10" href="#">
+            zeitwerk (2.7.5) lib/zeitwerk/core_ext/kernel.rb:26:in &#39;Kernel#require&#39;
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="15" href="#">
             actionpack (7.2.3) lib/action_controller/metal/basic_implicit_render.rb:8:in &#39;ActionController::BasicImplicitRender#send_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="6" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="16" href="#">
             actionpack (7.2.3) lib/abstract_controller/base.rb:215:in &#39;AbstractController::Base#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="7" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="17" href="#">
             actionpack (7.2.3) lib/action_controller/metal/rendering.rb:193:in &#39;ActionController::Rendering#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="8" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="18" href="#">
             actionpack (7.2.3) lib/abstract_controller/callbacks.rb:261:in &#39;block in AbstractController::Callbacks#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="9" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="19" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:121:in &#39;block in ActiveSupport::Callbacks#run_callbacks&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="10" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="20" href="#">
             turbo-rails (2.0.23) lib/turbo-rails.rb:24:in &#39;Turbo.with_request_id&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="11" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="21" href="#">
             turbo-rails (2.0.23) app/controllers/concerns/turbo/request_id_tracking.rb:10:in &#39;Turbo::RequestIdTracking#turbo_tracking_request_id&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="12" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="22" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:130:in &#39;block in ActiveSupport::Callbacks#run_callbacks&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="13" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="23" href="#">
             actiontext (7.2.3) lib/action_text/rendering.rb:25:in &#39;ActionText::Rendering::ClassMethods#with_renderer&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="14" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="24" href="#">
             actiontext (7.2.3) lib/action_text/engine.rb:71:in &#39;block (4 levels) in &lt;class:Engine&gt;&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="15" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="25" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:130:in &#39;BasicObject#instance_exec&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="16" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="26" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:130:in &#39;block in ActiveSupport::Callbacks#run_callbacks&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="17" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="27" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:141:in &#39;ActiveSupport::Callbacks#run_callbacks&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="18" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="28" href="#">
             actionpack (7.2.3) lib/abstract_controller/callbacks.rb:260:in &#39;AbstractController::Callbacks#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="19" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="29" href="#">
             actionpack (7.2.3) lib/action_controller/metal/rescue.rb:27:in &#39;ActionController::Rescue#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="20" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="30" href="#">
             actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:77:in &#39;block in ActionController::Instrumentation#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="21" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="31" href="#">
             activesupport (7.2.3) lib/active_support/notifications.rb:210:in &#39;block in ActiveSupport::Notifications.instrument&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="22" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="32" href="#">
             activesupport (7.2.3) lib/active_support/notifications/instrumenter.rb:58:in &#39;ActiveSupport::Notifications::Instrumenter#instrument&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="23" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="33" href="#">
             activesupport (7.2.3) lib/active_support/notifications.rb:210:in &#39;ActiveSupport::Notifications.instrument&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="24" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="34" href="#">
             actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:76:in &#39;ActionController::Instrumentation#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="25" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="35" href="#">
             actionpack (7.2.3) lib/action_controller/metal/params_wrapper.rb:259:in &#39;ActionController::ParamsWrapper#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="26" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="36" href="#">
             activerecord (7.2.3) lib/active_record/railties/controller_runtime.rb:39:in &#39;ActiveRecord::Railties::ControllerRuntime#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="27" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="37" href="#">
             actionpack (7.2.3) lib/abstract_controller/base.rb:152:in &#39;AbstractController::Base#process&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="28" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="38" href="#">
             actionview (7.2.3) lib/action_view/rendering.rb:40:in &#39;ActionView::Rendering#process&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="29" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="39" href="#">
             actionpack (7.2.3) lib/action_controller/metal.rb:252:in &#39;ActionController::Metal#dispatch&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="30" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="40" href="#">
             actionpack (7.2.3) lib/action_controller/metal.rb:335:in &#39;ActionController::Metal.dispatch&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="31" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="41" href="#">
             actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:67:in &#39;ActionDispatch::Routing::RouteSet::Dispatcher#dispatch&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="32" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="42" href="#">
             actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:50:in &#39;ActionDispatch::Routing::RouteSet::Dispatcher#serve&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="33" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="43" href="#">
             actionpack (7.2.3) lib/action_dispatch/journey/router.rb:53:in &#39;block in ActionDispatch::Journey::Router#serve&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="34" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="44" href="#">
             actionpack (7.2.3) lib/action_dispatch/journey/router.rb:133:in &#39;block in ActionDispatch::Journey::Router#find_routes&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="35" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="45" href="#">
             actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in &#39;Array#each&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="36" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="46" href="#">
             actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in &#39;ActionDispatch::Journey::Router#find_routes&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="37" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="47" href="#">
             actionpack (7.2.3) lib/action_dispatch/journey/router.rb:34:in &#39;ActionDispatch::Journey::Router#serve&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="38" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="48" href="#">
             actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:896:in &#39;ActionDispatch::Routing::RouteSet#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="39" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="49" href="#">
             rack (3.2.5) lib/rack/tempfile_reaper.rb:20:in &#39;Rack::TempfileReaper#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="40" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="50" href="#">
             rack (3.2.5) lib/rack/etag.rb:29:in &#39;Rack::ETag#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="41" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="51" href="#">
             rack (3.2.5) lib/rack/conditional_get.rb:44:in &#39;Rack::ConditionalGet#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="42" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="52" href="#">
             rack (3.2.5) lib/rack/head.rb:15:in &#39;Rack::Head#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="43" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="53" href="#">
             actionpack (7.2.3) lib/action_dispatch/http/permissions_policy.rb:38:in &#39;ActionDispatch::PermissionsPolicy::Middleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="44" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="54" href="#">
             actionpack (7.2.3) lib/action_dispatch/http/content_security_policy.rb:38:in &#39;ActionDispatch::ContentSecurityPolicy::Middleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="45" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="55" href="#">
             rack-session (2.1.1) lib/rack/session/abstract/id.rb:274:in &#39;Rack::Session::Abstract::Persisted#context&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="46" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="56" href="#">
             rack-session (2.1.1) lib/rack/session/abstract/id.rb:268:in &#39;Rack::Session::Abstract::Persisted#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="47" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="57" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/cookies.rb:704:in &#39;ActionDispatch::Cookies#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="48" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="58" href="#">
             activerecord (7.2.3) lib/active_record/migration.rb:674:in &#39;ActiveRecord::Migration::CheckPending#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="49" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="59" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:31:in &#39;block in ActionDispatch::Callbacks#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="50" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="60" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:101:in &#39;ActiveSupport::Callbacks#run_callbacks&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="51" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="61" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:30:in &#39;ActionDispatch::Callbacks#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="52" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="62" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in &#39;ActionDispatch::Executor#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="53" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="63" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in &#39;ActionDispatch::ActionableExceptions#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="54" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="64" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:31:in &#39;ActionDispatch::DebugExceptions#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="55" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="65" href="#">
             web-console (4.2.1) lib/web_console/middleware.rb:132:in &#39;WebConsole::Middleware#call_app&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="56" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="66" href="#">
             web-console (4.2.1) lib/web_console/middleware.rb:19:in &#39;block in WebConsole::Middleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="57" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="67" href="#">
             web-console (4.2.1) lib/web_console/middleware.rb:17:in &#39;Kernel#catch&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="58" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="68" href="#">
             web-console (4.2.1) lib/web_console/middleware.rb:17:in &#39;WebConsole::Middleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="59" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="69" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/show_exceptions.rb:32:in &#39;ActionDispatch::ShowExceptions#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="60" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="70" href="#">
             railties (7.2.3) lib/rails/rack/logger.rb:41:in &#39;Rails::Rack::Logger#call_app&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="61" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="71" href="#">
             railties (7.2.3) lib/rails/rack/logger.rb:29:in &#39;Rails::Rack::Logger#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="62" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="72" href="#">
             sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in &#39;Sprockets::Rails::QuietAssets#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="63" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="73" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/remote_ip.rb:96:in &#39;ActionDispatch::RemoteIp#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="64" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="74" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/request_id.rb:33:in &#39;ActionDispatch::RequestId#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="65" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="75" href="#">
             rack (3.2.5) lib/rack/method_override.rb:28:in &#39;Rack::MethodOverride#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="66" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="76" href="#">
             rack (3.2.5) lib/rack/runtime.rb:24:in &#39;Rack::Runtime#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="67" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="77" href="#">
             activesupport (7.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in &#39;ActiveSupport::Cache::Strategy::LocalCache::Middleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="68" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="78" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:61:in &#39;block in ActionDispatch::ServerTiming#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="69" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="79" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:26:in &#39;ActionDispatch::ServerTiming::Subscriber#collect_events&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="70" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="80" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:60:in &#39;ActionDispatch::ServerTiming#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="71" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="81" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in &#39;ActionDispatch::Executor#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="72" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="82" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/static.rb:27:in &#39;ActionDispatch::Static#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="73" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="83" href="#">
             rack (3.2.5) lib/rack/sendfile.rb:131:in &#39;Rack::Sendfile#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="74" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="84" href="#">
             railties (7.2.3) lib/rails/engine.rb:535:in &#39;Rails::Engine#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="75" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="85" href="#">
             puma (7.2.0) lib/puma/configuration.rb:296:in &#39;Puma::Configuration::ConfigMiddleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="76" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="86" href="#">
             puma (7.2.0) lib/puma/request.rb:103:in &#39;block in Puma::Request#handle_request&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="77" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="87" href="#">
             puma (7.2.0) lib/puma/thread_pool.rb:355:in &#39;Puma::ThreadPool#with_force_shutdown&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="78" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="88" href="#">
             puma (7.2.0) lib/puma/request.rb:102:in &#39;Puma::Request#handle_request&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="79" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="89" href="#">
             puma (7.2.0) lib/puma/server.rb:503:in &#39;Puma::Server#process_client&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="80" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="90" href="#">
             puma (7.2.0) lib/puma/server.rb:262:in &#39;block in Puma::Server#run&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="81" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="91" href="#">
             puma (7.2.0) lib/puma/thread_pool.rb:182:in &#39;block in Puma::ThreadPool#spawn_thread&#39;
           </a>
           <br>
@@ -3263,331 +3439,371 @@
     </div>
     <div id="Full-Trace-0" style="display: none;">
       <code class="traces">
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="0" href="#">
-            /usr/local/lib/ruby/3.4.0/uri/common.rb:582:in &#39;URI.decode_www_form&#39;
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="0" href="#">
+            app/services/flex_builder.rb:117: syntax errors found
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="1" href="#">
-            app/controllers/line_bot_controller.rb:76:in &#39;LineBotController#handle_postback&#39;
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="1" href="#">
+              115 |     }
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="2" href="#">
-            app/controllers/line_bot_controller.rb:39:in &#39;block in LineBotController#callback&#39;
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="2" href="#">
+              116 |   }
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="3" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="3" href="#">
+            &gt; 117 | end
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="4" href="#">
+                  |    ^ unexpected end-of-input, assuming it is closing the parent top level context
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="5" href="#">
+            &gt; 118 | 
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="6" href="#">
+                  | ^ expected an `end` to close the `module` statement
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="7" href="#">
+            /usr/local/lib/ruby/3.4.0/bundled_gems.rb:82:in &#39;Kernel.require&#39;
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="8" href="#">
+            /usr/local/lib/ruby/3.4.0/bundled_gems.rb:82:in &#39;block (2 levels) in Kernel#replace_require&#39;
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="9" href="#">
+            bootsnap (1.23.0) lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:33:in &#39;Kernel#require&#39;
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="10" href="#">
+            zeitwerk (2.7.5) lib/zeitwerk/core_ext/kernel.rb:26:in &#39;Kernel#require&#39;
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="11" href="#">
+            app/controllers/line_bot_controller.rb:57:in &#39;LineBotController#handle_message&#39;
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="12" href="#">
+            app/controllers/line_bot_controller.rb:35:in &#39;block in LineBotController#callback&#39;
+          </a>
+          <br>
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="13" href="#">
             app/controllers/line_bot_controller.rb:27:in &#39;Array#each&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="4" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="14" href="#">
             app/controllers/line_bot_controller.rb:27:in &#39;LineBotController#callback&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="5" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="15" href="#">
             actionpack (7.2.3) lib/action_controller/metal/basic_implicit_render.rb:8:in &#39;ActionController::BasicImplicitRender#send_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="6" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="16" href="#">
             actionpack (7.2.3) lib/abstract_controller/base.rb:215:in &#39;AbstractController::Base#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="7" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="17" href="#">
             actionpack (7.2.3) lib/action_controller/metal/rendering.rb:193:in &#39;ActionController::Rendering#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="8" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="18" href="#">
             actionpack (7.2.3) lib/abstract_controller/callbacks.rb:261:in &#39;block in AbstractController::Callbacks#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="9" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="19" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:121:in &#39;block in ActiveSupport::Callbacks#run_callbacks&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="10" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="20" href="#">
             turbo-rails (2.0.23) lib/turbo-rails.rb:24:in &#39;Turbo.with_request_id&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="11" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="21" href="#">
             turbo-rails (2.0.23) app/controllers/concerns/turbo/request_id_tracking.rb:10:in &#39;Turbo::RequestIdTracking#turbo_tracking_request_id&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="12" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="22" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:130:in &#39;block in ActiveSupport::Callbacks#run_callbacks&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="13" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="23" href="#">
             actiontext (7.2.3) lib/action_text/rendering.rb:25:in &#39;ActionText::Rendering::ClassMethods#with_renderer&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="14" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="24" href="#">
             actiontext (7.2.3) lib/action_text/engine.rb:71:in &#39;block (4 levels) in &lt;class:Engine&gt;&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="15" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="25" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:130:in &#39;BasicObject#instance_exec&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="16" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="26" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:130:in &#39;block in ActiveSupport::Callbacks#run_callbacks&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="17" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="27" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:141:in &#39;ActiveSupport::Callbacks#run_callbacks&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="18" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="28" href="#">
             actionpack (7.2.3) lib/abstract_controller/callbacks.rb:260:in &#39;AbstractController::Callbacks#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="19" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="29" href="#">
             actionpack (7.2.3) lib/action_controller/metal/rescue.rb:27:in &#39;ActionController::Rescue#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="20" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="30" href="#">
             actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:77:in &#39;block in ActionController::Instrumentation#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="21" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="31" href="#">
             activesupport (7.2.3) lib/active_support/notifications.rb:210:in &#39;block in ActiveSupport::Notifications.instrument&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="22" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="32" href="#">
             activesupport (7.2.3) lib/active_support/notifications/instrumenter.rb:58:in &#39;ActiveSupport::Notifications::Instrumenter#instrument&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="23" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="33" href="#">
             activesupport (7.2.3) lib/active_support/notifications.rb:210:in &#39;ActiveSupport::Notifications.instrument&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="24" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="34" href="#">
             actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:76:in &#39;ActionController::Instrumentation#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="25" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="35" href="#">
             actionpack (7.2.3) lib/action_controller/metal/params_wrapper.rb:259:in &#39;ActionController::ParamsWrapper#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="26" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="36" href="#">
             activerecord (7.2.3) lib/active_record/railties/controller_runtime.rb:39:in &#39;ActiveRecord::Railties::ControllerRuntime#process_action&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="27" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="37" href="#">
             actionpack (7.2.3) lib/abstract_controller/base.rb:152:in &#39;AbstractController::Base#process&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="28" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="38" href="#">
             actionview (7.2.3) lib/action_view/rendering.rb:40:in &#39;ActionView::Rendering#process&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="29" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="39" href="#">
             actionpack (7.2.3) lib/action_controller/metal.rb:252:in &#39;ActionController::Metal#dispatch&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="30" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="40" href="#">
             actionpack (7.2.3) lib/action_controller/metal.rb:335:in &#39;ActionController::Metal.dispatch&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="31" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="41" href="#">
             actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:67:in &#39;ActionDispatch::Routing::RouteSet::Dispatcher#dispatch&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="32" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="42" href="#">
             actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:50:in &#39;ActionDispatch::Routing::RouteSet::Dispatcher#serve&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="33" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="43" href="#">
             actionpack (7.2.3) lib/action_dispatch/journey/router.rb:53:in &#39;block in ActionDispatch::Journey::Router#serve&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="34" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="44" href="#">
             actionpack (7.2.3) lib/action_dispatch/journey/router.rb:133:in &#39;block in ActionDispatch::Journey::Router#find_routes&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="35" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="45" href="#">
             actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in &#39;Array#each&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="36" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="46" href="#">
             actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in &#39;ActionDispatch::Journey::Router#find_routes&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="37" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="47" href="#">
             actionpack (7.2.3) lib/action_dispatch/journey/router.rb:34:in &#39;ActionDispatch::Journey::Router#serve&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="38" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="48" href="#">
             actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:896:in &#39;ActionDispatch::Routing::RouteSet#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="39" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="49" href="#">
             rack (3.2.5) lib/rack/tempfile_reaper.rb:20:in &#39;Rack::TempfileReaper#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="40" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="50" href="#">
             rack (3.2.5) lib/rack/etag.rb:29:in &#39;Rack::ETag#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="41" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="51" href="#">
             rack (3.2.5) lib/rack/conditional_get.rb:44:in &#39;Rack::ConditionalGet#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="42" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="52" href="#">
             rack (3.2.5) lib/rack/head.rb:15:in &#39;Rack::Head#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="43" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="53" href="#">
             actionpack (7.2.3) lib/action_dispatch/http/permissions_policy.rb:38:in &#39;ActionDispatch::PermissionsPolicy::Middleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="44" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="54" href="#">
             actionpack (7.2.3) lib/action_dispatch/http/content_security_policy.rb:38:in &#39;ActionDispatch::ContentSecurityPolicy::Middleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="45" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="55" href="#">
             rack-session (2.1.1) lib/rack/session/abstract/id.rb:274:in &#39;Rack::Session::Abstract::Persisted#context&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="46" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="56" href="#">
             rack-session (2.1.1) lib/rack/session/abstract/id.rb:268:in &#39;Rack::Session::Abstract::Persisted#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="47" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="57" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/cookies.rb:704:in &#39;ActionDispatch::Cookies#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="48" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="58" href="#">
             activerecord (7.2.3) lib/active_record/migration.rb:674:in &#39;ActiveRecord::Migration::CheckPending#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="49" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="59" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:31:in &#39;block in ActionDispatch::Callbacks#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="50" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="60" href="#">
             activesupport (7.2.3) lib/active_support/callbacks.rb:101:in &#39;ActiveSupport::Callbacks#run_callbacks&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="51" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="61" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:30:in &#39;ActionDispatch::Callbacks#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="52" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="62" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in &#39;ActionDispatch::Executor#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="53" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="63" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in &#39;ActionDispatch::ActionableExceptions#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="54" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="64" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:31:in &#39;ActionDispatch::DebugExceptions#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="55" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="65" href="#">
             web-console (4.2.1) lib/web_console/middleware.rb:132:in &#39;WebConsole::Middleware#call_app&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="56" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="66" href="#">
             web-console (4.2.1) lib/web_console/middleware.rb:19:in &#39;block in WebConsole::Middleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="57" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="67" href="#">
             web-console (4.2.1) lib/web_console/middleware.rb:17:in &#39;Kernel#catch&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="58" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="68" href="#">
             web-console (4.2.1) lib/web_console/middleware.rb:17:in &#39;WebConsole::Middleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="59" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="69" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/show_exceptions.rb:32:in &#39;ActionDispatch::ShowExceptions#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="60" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="70" href="#">
             railties (7.2.3) lib/rails/rack/logger.rb:41:in &#39;Rails::Rack::Logger#call_app&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="61" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="71" href="#">
             railties (7.2.3) lib/rails/rack/logger.rb:29:in &#39;Rails::Rack::Logger#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="62" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="72" href="#">
             sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in &#39;Sprockets::Rails::QuietAssets#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="63" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="73" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/remote_ip.rb:96:in &#39;ActionDispatch::RemoteIp#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="64" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="74" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/request_id.rb:33:in &#39;ActionDispatch::RequestId#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="65" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="75" href="#">
             rack (3.2.5) lib/rack/method_override.rb:28:in &#39;Rack::MethodOverride#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="66" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="76" href="#">
             rack (3.2.5) lib/rack/runtime.rb:24:in &#39;Rack::Runtime#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="67" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="77" href="#">
             activesupport (7.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in &#39;ActiveSupport::Cache::Strategy::LocalCache::Middleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="68" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="78" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:61:in &#39;block in ActionDispatch::ServerTiming#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="69" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="79" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:26:in &#39;ActionDispatch::ServerTiming::Subscriber#collect_events&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="70" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="80" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:60:in &#39;ActionDispatch::ServerTiming#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="71" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="81" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in &#39;ActionDispatch::Executor#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="72" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="82" href="#">
             actionpack (7.2.3) lib/action_dispatch/middleware/static.rb:27:in &#39;ActionDispatch::Static#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="73" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="83" href="#">
             rack (3.2.5) lib/rack/sendfile.rb:131:in &#39;Rack::Sendfile#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="74" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="84" href="#">
             railties (7.2.3) lib/rails/engine.rb:535:in &#39;Rails::Engine#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="75" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="85" href="#">
             puma (7.2.0) lib/puma/configuration.rb:296:in &#39;Puma::Configuration::ConfigMiddleware#call&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="76" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="86" href="#">
             puma (7.2.0) lib/puma/request.rb:103:in &#39;block in Puma::Request#handle_request&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="77" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="87" href="#">
             puma (7.2.0) lib/puma/thread_pool.rb:355:in &#39;Puma::ThreadPool#with_force_shutdown&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="78" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="88" href="#">
             puma (7.2.0) lib/puma/request.rb:102:in &#39;Puma::Request#handle_request&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="79" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="89" href="#">
             puma (7.2.0) lib/puma/server.rb:503:in &#39;Puma::Server#process_client&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="80" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="90" href="#">
             puma (7.2.0) lib/puma/server.rb:262:in &#39;block in Puma::Server#run&#39;
           </a>
           <br>
-          <a class="trace-frames trace-frames-0" data-exception-object-id="9784" data-frame-id="81" href="#">
+          <a class="trace-frames trace-frames-0" data-exception-object-id="10592" data-frame-id="91" href="#">
             puma (7.2.0) lib/puma/thread_pool.rb:182:in &#39;block in Puma::ThreadPool#spawn_thread&#39;
           </a>
           <br>
@@ -3636,22 +3852,22 @@
   <!-- BEGIN /usr/local/bundle/gems/actionpack-7.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb --><h2 class="request-heading">Request</h2>
   <p><b>Parameters</b>:</p> <pre>{&quot;destination&quot; =&gt; &quot;Uac3b262f118636d67104eaf1f08aa1f7&quot;,
  &quot;events&quot; =&gt;
-  [{&quot;type&quot; =&gt; &quot;postback&quot;,
-    &quot;postback&quot; =&gt; {&quot;data&quot; =&gt; &quot;answer=ア&amp;question_id=7&amp;year=&amp;correct=イ&quot;},
-    &quot;webhookEventId&quot; =&gt; &quot;01KN9R8709D2KZNFP1CNJRZF4J&quot;,
+  [{&quot;type&quot; =&gt; &quot;message&quot;,
+    &quot;message&quot; =&gt; {&quot;type&quot; =&gt; &quot;text&quot;, &quot;id&quot; =&gt; &quot;610291674870186380&quot;, &quot;quoteToken&quot; =&gt; &quot;[FILTERED]&quot;, &quot;markAsReadToken&quot; =&gt; &quot;[FILTERED]&quot;, &quot;text&quot; =&gt; &quot;あ&quot;},
+    &quot;webhookEventId&quot; =&gt; &quot;01KPJKJK8WA6H2SER1V2FG7K3T&quot;,
     &quot;deliveryContext&quot; =&gt; {&quot;isRedelivery&quot; =&gt; false},
-    &quot;timestamp&quot; =&gt; 1775222659612,
+    &quot;timestamp&quot; =&gt; 1776593489082,
     &quot;source&quot; =&gt; {&quot;type&quot; =&gt; &quot;user&quot;, &quot;userId&quot; =&gt; &quot;U8d7cfedfadd57affd87c896b4e586438&quot;},
     &quot;replyToken&quot; =&gt; &quot;[FILTERED]&quot;,
     &quot;mode&quot; =&gt; &quot;active&quot;}],
  &quot;line_bot&quot; =&gt;
   {&quot;destination&quot; =&gt; &quot;Uac3b262f118636d67104eaf1f08aa1f7&quot;,
    &quot;events&quot; =&gt;
-    [{&quot;type&quot; =&gt; &quot;postback&quot;,
-      &quot;postback&quot; =&gt; {&quot;data&quot; =&gt; &quot;answer=ア&amp;question_id=7&amp;year=&amp;correct=イ&quot;},
-      &quot;webhookEventId&quot; =&gt; &quot;01KN9R8709D2KZNFP1CNJRZF4J&quot;,
+    [{&quot;type&quot; =&gt; &quot;message&quot;,
+      &quot;message&quot; =&gt; {&quot;type&quot; =&gt; &quot;text&quot;, &quot;id&quot; =&gt; &quot;610291674870186380&quot;, &quot;quoteToken&quot; =&gt; &quot;[FILTERED]&quot;, &quot;markAsReadToken&quot; =&gt; &quot;[FILTERED]&quot;, &quot;text&quot; =&gt; &quot;あ&quot;},
+      &quot;webhookEventId&quot; =&gt; &quot;01KPJKJK8WA6H2SER1V2FG7K3T&quot;,
       &quot;deliveryContext&quot; =&gt; {&quot;isRedelivery&quot; =&gt; false},
-      &quot;timestamp&quot; =&gt; 1775222659612,
+      &quot;timestamp&quot; =&gt; 1776593489082,
       &quot;source&quot; =&gt; {&quot;type&quot; =&gt; &quot;user&quot;, &quot;userId&quot; =&gt; &quot;U8d7cfedfadd57affd87c896b4e586438&quot;},
       &quot;replyToken&quot; =&gt; &quot;[FILTERED]&quot;,
       &quot;mode&quot; =&gt; &quot;active&quot;}]}}
@@ -3666,7 +3882,7 @@
   <div class="summary"><a href="#" onclick="return toggleEnvDump()">Toggle env dump</a></div>
   <div id="env_dump" class="hidden"><pre>GATEWAY_INTERFACE: &quot;CGI/1.2&quot;
 HTTP_ACCEPT_ENCODING: &quot;gzip&quot;
-HTTP_X_FORWARDED_FOR: &quot;147.92.150.198&quot;
+HTTP_X_FORWARDED_FOR: &quot;147.92.150.197&quot;
 HTTP_X_FORWARDED_HOST: &quot;amelia-monocultural-uncredulously.ngrok-free.dev&quot;
 ORIGINAL_SCRIPT_NAME: &quot;&quot;
 REMOTE_ADDR: &quot;172.19.0.1&quot;
