@@ -28,7 +28,7 @@ development:
     database: fe_line_bot_development
   queue:
     <<: *default
-    database: fe_line_bot_development_queue
+    database: fe_line_bot_development
     migrations_paths: db/queue_migrate
 
 production:
@@ -39,7 +39,7 @@ production:
     password: <%= ENV["APP_DATABASE_PASSWORD"] %>
   queue:
     <<: *primary_production
-    database: app_production_queue
+    database: app_production
     migrations_paths: db/queue_migrate
 
   # The specified database role being used to connect to PostgreSQL.
