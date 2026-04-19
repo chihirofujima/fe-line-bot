@@ -11,10 +11,10 @@ module FlexBuilder
           "type"        => "postback",
           "label"       => label,
           "data"        => URI.encode_www_form([
-            ["answer", label],
-            ["question_id", question_id],
-            ["year", year],
-            ["correct", correct]
+            [ "answer", label ],
+            [ "question_id", question_id ],
+            [ "year", year ],
+            [ "correct", correct ]
           ]),
           "displayText" => label
         },

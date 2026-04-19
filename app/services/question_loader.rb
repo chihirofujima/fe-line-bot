@@ -16,7 +16,7 @@ module QuestionLoader
       year_code = extract_year_code(File.basename(csv_path))
       CSV.foreach(csv_path, headers: true, encoding: "BOM|UTF-8").map do |row|
         number = row["number"].to_i
-        csv_url = row["explanation_url"] 
+        csv_url = row["explanation_url"]
         {
           year:            year_code,
           number:          number,
@@ -57,7 +57,7 @@ module QuestionLoader
     elsif filename =~ /h(\d{2})_aki/i
       # 平成・秋期 例: h30_aki → 30_aki
       "#{$1}_aki"
-  else
+    else
       "unknown"
     end
   end
