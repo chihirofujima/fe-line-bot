@@ -32,7 +32,7 @@ class LineBotController < ApplicationController
       when Line::Bot::V2::Webhook::MessageEvent
         case event.message
         when Line::Bot::V2::Webhook::TextMessageContent
-          handle_message(event)
+          handle_text(event)
         end
 
       when Line::Bot::V2::Webhook::PostbackEvent
@@ -42,7 +42,18 @@ class LineBotController < ApplicationController
   end
 
   private
-
+  
+  def handle_text(event)
+    text = event.message.text.strip
+    case text
+    when "問題を解く"
+      handle_message(event)
+    when "設定"
+      reply_text(event.reply_token, "設定機能は準備中です。")
+    else
+      reply_text(event.reply_token, "下のメニューから操作してください。\n「問題を解く」で出題します！")
+    end
+  end
   # テキスト受信 → ランダムに問題を出題
   def handle_message(event)
     begin
@@ -100,7 +111,7 @@ class LineBotController < ApplicationController
       q    = QuestionLoader.find(year: year, number: question_id)
 
       Rails.logger.info "=== q: #{q.inspect}"
-  Rails.logger.info "=== explanation_url: #{q&.dig(:explanation_url)}"
+      Rails.logger.info "=== explanation_url: #{q&.dig(:explanation_url)}"
 
       flex = FlexBuilder.result(
         is_correct:      is_correct,
