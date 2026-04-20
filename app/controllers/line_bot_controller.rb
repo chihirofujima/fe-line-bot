@@ -42,7 +42,7 @@ class LineBotController < ApplicationController
   end
 
   private
-  
+
   def handle_text(event)
     text = event.message.text.strip
     case text
