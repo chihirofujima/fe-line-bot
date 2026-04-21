@@ -76,4 +76,4 @@ namespace :line do
     res = http.request(req)
     puts "デフォルト設定: #{res.code} #{res.body}"
   end
-end  # ← namespace の end
+end
