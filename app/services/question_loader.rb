@@ -1,7 +1,7 @@
 require "csv"
 
 module QuestionLoader
-  DB_PATH = Rails.root.join("db")
+  DB_PATH = Rails.root.join("db/csv")
 
   def self.all
     if Rails.env.development?
