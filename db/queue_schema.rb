@@ -10,9 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 1) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_22_132948) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "question_id"
+    t.datetime "delivered_at"
+    t.boolean "is_correct"
+    t.datetime "last_answered_at"
+    t.integer "review_level"
+    t.integer "answer_choice"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "delivery_settings", force: :cascade do |t|
+    t.integer "user_id"
+    t.time "delivery_time"
+    t.string "frequency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer "number"
+    t.text "content"
+    t.string "image_url"
+    t.string "choice_1"
+    t.string "choice_2"
+    t.string "choice_3"
+    t.string "choice_4"
+    t.string "correct_answer"
+    t.string "explanation_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
     t.bigint "job_id", null: false
@@ -133,6 +167,14 @@ ActiveRecord::Schema[7.2].define(version: 1) do
     t.index ["expires_at"], name: "index_solid_queue_semaphores_on_expires_at"
     t.index ["key", "value"], name: "index_solid_queue_semaphores_on_key_and_value"
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "line_user_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "state"
   end
 
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

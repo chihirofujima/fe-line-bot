@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: fe-line-bot
+    env: docker
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    buildCommand: bundle install && bundle exec rails assets:precompile && bundle exec rails assets:clean && bundle exec rails db:migrate
+    startCommand: bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}
+    envVars:
+      - key: LINE_CHANNEL_SECRET
+        sync: false
+      - key: LINE_CHANNEL_TOKEN
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: RAILS_MASTER_KEY
+        sync: false
+
+  - type: cron
+    name: line-quiz-delivery
+    env: docker
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    schedule: "0 23 * * *"    # 毎朝8時JST
+    buildCommand: bundle install  # ← 追加
+    startCommand: bundle exec rails line:push_daily_question
+    envVars:
+      - key: LINE_CHANNEL_SECRET
+        sync: false
+      - key: LINE_CHANNEL_TOKEN
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: RAILS_MASTER_KEY
+        sync: false

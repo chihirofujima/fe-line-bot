@@ -1,56 +1,40 @@
-# app/services/line_push_service.rb
 class LinePushService
-  LINE_API_ENDPOINT = "https://api.line.me/v2/bot/message/broadcast"
-
   def self.push_daily_question
-    question = Question.order("RANDOM()").first
+    q = Question.order("RANDOM()").first
+    return Rails.logger.error "問題が見つかりません" unless q
 
-    message = build_message(question)
-    send_push(message)
-  end
-
-  private
-
-  def self.build_message(question)
-    {
-      messages: [
-        {
-          type: "text",
-          text: "📚 本日の基本情報技術者試験問題\n\n#{question.body}\n\n" \
-                "A. #{question.choice_a}\n" \
-                "B. #{question.choice_b}\n" \
-                "C. #{question.choice_c}\n" \
-                "D. #{question.choice_d}"
-        },
-        {
-          type: "template",
-          altText: "回答してください",
-          template: {
-            type: "buttons",
-            text: "答えを選んでください",
-            actions: [
-              { type: "postback", label: "A", data: "answer=A&question_id=#{question.id}" },
-              { type: "postback", label: "B", data: "answer=B&question_id=#{question.id}" },
-              { type: "postback", label: "C", data: "answer=C&question_id=#{question.id}" },
-              { type: "postback", label: "D", data: "answer=D&question_id=#{question.id}" }
-            ]
-          }
-        }
-      ]
+    choices = {
+      "ア" => q.choice_1,
+      "イ" => q.choice_2,
+      "ウ" => q.choice_3,
+      "エ" => q.choice_4
     }
-  end
 
-  def self.send_push(body)
-    uri = URI(LINE_API_ENDPOINT)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
+    flex = FlexBuilder.question(
+      question_id:   q.number,
+      year:          nil,
+      question_text: q.content,
+      choices:       choices,
+      correct:       q.correct_answer
+    )
 
-    request = Net::HTTP::Post.new(uri)
-    request["Content-Type"] = "application/json"
-    request["Authorization"] = "Bearer #{ENV['LINE_CHANNEL_ACCESS_TOKEN']}"
-    request.body = body.to_json
+    client = Line::Bot::V2::MessagingApi::ApiClient.new(
+      channel_access_token: ENV.fetch("LINE_CHANNEL_TOKEN")
+    )
 
-    response = http.request(request)
-    Rails.logger.info "LINE push result: #{response.code} #{response.body}"
+    request = Line::Bot::V2::MessagingApi::BroadcastRequest.new(
+      messages: [
+        Line::Bot::V2::MessagingApi::FlexMessage.new(
+          alt_text: flex["altText"],
+          contents: flex["contents"]
+        )
+      ]
+    )
+
+    response = client.broadcast(broadcast_request: request)
+    Rails.logger.info "LINE broadcast result: #{response.inspect}"
+  rescue => e
+    Rails.logger.error "LinePushService error: #{e.class} #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
   end
 end
