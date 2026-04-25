@@ -5,8 +5,7 @@ services:
     region: singapore
     dockerfilePath: ./Dockerfile
     buildCommand: bundle install && bundle exec rails assets:precompile && bundle exec rails assets:clean && bundle exec rails db:migrate
-    startCommand: bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}
-    envVars:
+    startCommand: startCommand: bundle exec rails db:seed && bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}
       - key: LINE_CHANNEL_SECRET
         sync: false
       - key: LINE_CHANNEL_TOKEN
@@ -21,7 +20,7 @@ services:
     env: docker
     region: singapore
     dockerfilePath: ./Dockerfile
-    schedule: "0 23 * * *"    # 毎朝8時JST
+    schedule: "0 15 * * *"    #0時
     buildCommand: bundle install  # ← 追加
     startCommand: bundle exec rails line:push_daily_question
     envVars:
