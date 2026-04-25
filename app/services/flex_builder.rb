@@ -1,7 +1,7 @@
 require "uri"
 
 module FlexBuilder
-  def self.question(question_id:, year:, question_text:, choices:, correct:)
+  def self.question(question_id:, question_text:, choices:, correct:)
     rows = choices.map do |label, text|
       {
         "type"     => "box",
@@ -13,7 +13,6 @@ module FlexBuilder
           "data"        => URI.encode_www_form([
             [ "answer", label ],
             [ "question_id", question_id ],
-            [ "year", year ],
             [ "correct", correct ]
           ]),
           "displayText" => label
