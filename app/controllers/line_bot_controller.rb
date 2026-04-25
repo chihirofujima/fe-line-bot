@@ -57,9 +57,7 @@ class LineBotController < ApplicationController
   # テキスト受信 → ランダムに問題を出題
   def handle_message(event)
     begin
-      q = QuestionLoader.random
-
-      Rails.logger.info "=== q[:year]: #{q[:year]}"
+      q = Question.order("RANDOM()").first
 
       return reply_text(event.reply_token, "問題が見つかりませんでした") unless q
       choices = {
@@ -71,16 +69,14 @@ class LineBotController < ApplicationController
       question_text = q[:content]
 
       flex = FlexBuilder.question(
-        question_id:   q[:number],
-        year:          q[:year],
-        question_text: question_text,
+        question_id:   q[:id],
+        question_text: q[:content],
         choices:       choices,
         correct:       q[:correct_answer]
       )
 
-      Rails.logger.info "=== flex built: #{flex.inspect}"
+      Rails.logger.info "=== flex: #{flex.inspect}"
       reply_flex(event.reply_token, flex)
-      Rails.logger.info "=== reply_flex done"
     rescue => e
       Rails.logger.error "handle_message error: #{e.class} #{e.message}"
       Rails.logger.error e.backtrace.join("\n")
@@ -102,26 +98,19 @@ class LineBotController < ApplicationController
     else
       user_answer = params["answer"]
       question_id = params["question_id"].to_i
-      year        = params["year"]
       correct     = params["correct"]
       is_correct  = user_answer == correct
 
-      Rails.logger.info "=== year: #{year}, question_id: #{question_id}"
-
-      q    = QuestionLoader.find(year: year, number: question_id)
-
-      Rails.logger.info "=== q: #{q.inspect}"
-      Rails.logger.info "=== explanation_url: #{q&.dig(:explanation_url)}"
+      q = Question.find_by(id: question_id)
 
       flex = FlexBuilder.result(
         is_correct:      is_correct,
         correct:         correct,
         question_id:     question_id,
-        explanation_url: q&.dig(:explanation_url)
+        explanation_url: q&.explanation_url
       )
 
       reply_flex(event.reply_token, flex)
-
       send_next_question_push(event.source.user_id)
     end
   end

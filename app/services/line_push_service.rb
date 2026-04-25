@@ -11,8 +11,7 @@ class LinePushService
     }
 
     flex = FlexBuilder.question(
-      question_id:   q.number,
-      year:          nil,
+      question_id:   q.id,
       question_text: q.content,
       choices:       choices,
       correct:       q.correct_answer
