@@ -34,12 +34,11 @@ development:
 production:
   primary: &primary_production
     <<: *default
-    database: app_production
-    username: app
+    url: <%= ENV['DATABASE_URL'] %>
     password: <%= ENV["APP_DATABASE_PASSWORD"] %>
   queue:
     <<: *primary_production
-    database: app_production
+    url: <%= ENV['DATABASE_URL'] %>
     migrations_paths: db/queue_migrate
 
   # The specified database role being used to connect to PostgreSQL.
