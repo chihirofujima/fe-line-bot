@@ -10,7 +10,7 @@ class ScheduledPushJob < ApplicationJob
       channel_access_token: ENV.fetch("LINE_CHANNEL_TOKEN")
     )
 
-    q = QuestionLoader.random
+    q = Question.order("RANDOM()").first
     return Rails.logger.error "[ScheduledPushJob] 問題が見つかりません" unless q
 
     choices = {
