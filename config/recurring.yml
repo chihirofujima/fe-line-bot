@@ -11,7 +11,7 @@
 production:
   scheduled_push_job:
     class: ScheduledPushJob
-    schedule: "30 1 * * *"   # 毎日9時（UTC）= 日本時間18時
+    schedule: "0 23 * * *"  # 毎日朝8時JST（UTC 23:00）
     queue: default
 
 development:
