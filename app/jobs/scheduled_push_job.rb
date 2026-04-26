@@ -22,7 +22,6 @@ class ScheduledPushJob < ApplicationJob
 
     flex = FlexBuilder.question(
       question_id:   q[:number],
-      year:          q[:year],
       question_text: q[:content],
       choices:       choices,
       correct:       q[:correct_answer]
