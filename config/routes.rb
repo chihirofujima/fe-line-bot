@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
   namespace :api do
-    post 'quiz/deliver', to: 'quiz#deliver'
+    post "quiz/deliver", to: "quiz#deliver"
   end
 
   root to: proc { [ 200, {}, [ "OK" ] ] }

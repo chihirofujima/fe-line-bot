@@ -4,18 +4,18 @@ class Api::QuizController < ApplicationController
 
   def deliver
     ScheduledPushJob.perform_later
-    render json: { status: 'ok' }
+    render json: { status: "ok" }
   end
 
   private
 
   def verify_cron_token
-    token = request.headers['Authorization']&.split('Bearer ')&.last
+    token = request.headers["Authorization"]&.split("Bearer ")&.last
     unless token && ActiveSupport::SecurityUtils.secure_compare(
       token,
-      ENV.fetch('CRON_SECRET_TOKEN')
+      ENV.fetch("CRON_SECRET_TOKEN")
     )
-      render json: { error: 'unauthorized' }, status: :unauthorized
+      render json: { error: "unauthorized" }, status: :unauthorized
     end
   end
 end
