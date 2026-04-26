@@ -3,8 +3,8 @@ class Api::QuizController < ApplicationController
   before_action :verify_cron_token
 
   def deliver
-    ScheduledPushJob.perform_later
-    render json: { status: "ok" }
+    ScheduledPushJob.perform_now  # perform_laterからperform_nowに変更
+    render json: { status: 'ok' }
   end
 
   private
