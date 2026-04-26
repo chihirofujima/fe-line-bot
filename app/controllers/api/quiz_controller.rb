@@ -4,7 +4,7 @@ class Api::QuizController < ApplicationController
 
   def deliver
     ScheduledPushJob.perform_now  # perform_laterからperform_nowに変更
-    render json: { status: 'ok' }
+    render json: { status: "ok" }
   end
 
   private
