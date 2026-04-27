@@ -3,7 +3,7 @@ require 'csv'
 # r05 → "05_menjo", r06 → "06_haru" or "06_aki" など
 # CSVにexplanation_urlが入っていない場合の自動生成ルール
 YEAR_PATH = {
-  "r05" => "05_menjo",
+  "r05" => "05_menjo"
   # 今後追加する場合はここに追記
   # "r06" => "06_haru",
 }.freeze
