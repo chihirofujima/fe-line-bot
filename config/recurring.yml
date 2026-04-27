@@ -8,11 +8,12 @@
 #     command: "SoftDeletedRecord.due.delete_all"
 #     priority: 2
 #     schedule: at 5am every day
-production:
-  scheduled_push_job:
-    class: ScheduledPushJob
-    schedule: "0 23 * * *"  # 毎日朝8時JST（UTC 23:00）
-    queue: default
+
+# production:　# ←Solid Queue使用時にコメントアウト削除
+#  scheduled_push_job:
+#    class: ScheduledPushJob
+#    schedule: "0 23 * * *"  # 毎日朝8時JST（UTC 23:00）
+#    queue: default
 
 development:
   scheduled_push_job:

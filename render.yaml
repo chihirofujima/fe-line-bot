@@ -15,20 +15,20 @@ services:
       - key: RAILS_MASTER_KEY
         sync: false
 
-  - type: cron
-    name: line-quiz-delivery
-    env: docker
-    region: singapore
-    dockerfilePath: ./Dockerfile
-    schedule: "0 15 * * *"    #0時
-    buildCommand: bundle install  # ← 追加
-    startCommand: bundle exec rails line:push_daily_question
-    envVars:
-      - key: LINE_CHANNEL_SECRET
-        sync: false
-      - key: LINE_CHANNEL_TOKEN
-        sync: false
-      - key: DATABASE_URL
-        sync: false
-      - key: RAILS_MASTER_KEY
-        sync: false
+#  - type: cron　# ← cron-job.org使用中のため無効化。cron-job.org廃止時にコメントアウト削除
+#    name: line-quiz-delivery
+#    env: docker
+#    region: singapore
+#    dockerfilePath: ./Dockerfile
+#    schedule: "0 15 * * *"    #0時
+#    buildCommand: bundle install
+#    startCommand: bundle exec rails line:push_daily_question
+#    envVars:
+#      - key: LINE_CHANNEL_SECRET
+#        sync: false
+#      - key: LINE_CHANNEL_TOKEN
+#        sync: false
+#      - key: DATABASE_URL
+#        sync: false
+#      - key: RAILS_MASTER_KEY
+#        sync: false
