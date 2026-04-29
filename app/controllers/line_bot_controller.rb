@@ -112,7 +112,6 @@ class LineBotController < ApplicationController
       )
 
       reply_flex(event.reply_token, flex)
-      send_next_question_push(event.source.user_id)
     end
   end
 
