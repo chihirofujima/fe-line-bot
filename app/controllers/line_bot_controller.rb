@@ -102,6 +102,7 @@ class LineBotController < ApplicationController
       is_correct  = user_answer == correct
 
       q = Question.find_by(id: question_id)
+      Rails.logger.info "=== explanation_url: #{q&.explanation_url.inspect} ==="
 
       flex = FlexBuilder.result(
         is_correct:      is_correct,
@@ -111,7 +112,6 @@ class LineBotController < ApplicationController
       )
 
       reply_flex(event.reply_token, flex)
-      send_next_question_push(event.source.user_id)
     end
   end
 
