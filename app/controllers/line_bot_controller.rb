@@ -48,6 +48,9 @@ class LineBotController < ApplicationController
     case text
     when "問題を解く"
       handle_message(event)
+    when "履歴", "学習履歴", "成績"
+      user = User.find_by(line_user_id: event.souece.user_id)
+      repley_text(event.reply_token, history_massage(user))
     when "設定"
       reply_text(event.reply_token, "設定機能は準備中です。")
     else
@@ -103,6 +106,10 @@ class LineBotController < ApplicationController
 
       q = Question.find_by(number: question_number)
 
+      # 回答をテーブルに保存
+      user = User.find_by(line_user_id: event.source.user_id)
+      save_answer(user, q.id, user_answer, is_correct) if user && q
+
       flex = FlexBuilder.result(
         is_correct:      is_correct,
         correct:         correct,
@@ -151,5 +158,50 @@ class LineBotController < ApplicationController
     @parser ||= Line::Bot::V2::WebhookParser.new(
       channel_secret: ENV.fetch("LINE_CHANNEL_SECRET")
     )
+  end
+
+  def save_answer(user, question_id, selected_choice, is_correct)
+    answer = Answer.find_or_initialize_by(
+      user_id: user.id,
+      question_id: question_id
+    )
+    answer.delivered_at ||= Time.current # 初回のみセット
+
+    answer.assign_attributes(
+      answer_choice:    selected_choice,
+      is_correct:       is_correct,
+      last_answered_at: Time.current,
+      review_level:     calc_review_level(answer, is_correct)
+    )
+    answer.save!
+  end
+
+  def calc_review_level(answer, is_correct)
+    current = answer.review_level.to_i
+    is_correct ? [ current + 1, 5 ].min : [ current -1, 0 ].max
+  end
+
+  def history_massage(user)
+    answers  = Answer.where(user_id: user.id).includes(:question)
+    total   = answers.count
+    correct = answers.where(is_correct: true).count
+    rate    = total.zero? ? 0 : (correct.to_f / total * 100).round(1)
+
+    recent_lines = answers.order(last_answered_at: :desc).first(5).map do |a|
+      mark = a.is_correct ? "⭕": "❌"
+      "#{mark} #{a.question.year} 問#{a.question.number}"
+    end.join("\n")
+
+    <<~TEXT
+      📊 あなたの学習履歴
+
+      回答数：#{total}問
+      正解数：#{correct}問
+      正答率：#{rate}%
+
+      ━━━━━━━━━━
+      📝 直近の回答
+      #{recent_lines.presence || "まだ回答がありません"}
+    TEXT
   end
 end
