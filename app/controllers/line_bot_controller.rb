@@ -69,7 +69,7 @@ class LineBotController < ApplicationController
       question_text = q[:content]
 
       flex = FlexBuilder.question(
-        question_id:   q[:id],
+        question_number:   q[:number],
         question_text: q[:content],
         choices:       choices,
         correct:       q[:correct_answer]
@@ -97,17 +97,16 @@ class LineBotController < ApplicationController
       reply_text(event.reply_token, "お疲れ様でした！またいつでも挑戦してね。")
     else
       user_answer = params["answer"]
-      question_id = params["question_id"].to_i
+      question_number = params["question_number"].to_i
       correct     = params["correct"]
       is_correct  = user_answer == correct
 
-      q = Question.find_by(id: question_id)
-      Rails.logger.info "=== explanation_url: #{q&.explanation_url.inspect} ==="
+      q = Question.find_by(number: question_number)
 
       flex = FlexBuilder.result(
         is_correct:      is_correct,
         correct:         correct,
-        question_id:     question_id,
+        question_id:     question_number,
         explanation_url: q&.explanation_url
       )
 
