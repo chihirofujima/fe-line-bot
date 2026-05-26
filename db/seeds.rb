@@ -1,7 +1,7 @@
 require 'csv'
 
 Dir[Rails.root.join('db/csv/*.csv')].each do |file|
-  url_path = File.basename(file, '.csv') 
+  url_path = File.basename(file, '.csv')
   Rails.logger.info "Importing #{url_path}..."
 
   CSV.foreach(file, headers: true, encoding: 'BOM|UTF-8') do |row|
