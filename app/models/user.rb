@@ -1,4 +1,3 @@
-# app/models/user.rb
 class User < ApplicationRecord
   # LINEユーザーIDでの検索・作成に使うバリデーション
   validates :line_user_id, presence: true, uniqueness: true
