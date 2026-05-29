@@ -47,10 +47,10 @@ class LineBotController < ApplicationController
     text = event.message.text.strip
     case text
     when "問題を解く"
-      handle_message(event)
+     handle_message(event)
     when "履歴", "学習履歴", "成績"
-      user = User.find_by(line_user_id: event.souece.user_id)
-      repley_text(event.reply_token, history_massage(user))
+     user = User.find_or_create_by(line_user_id: event.source.user_id)
+     reply_text(event.reply_token, history_message(user))
     when "設定"
       reply_text(event.reply_token, "設定機能は準備中です。")
     else
@@ -69,7 +69,6 @@ class LineBotController < ApplicationController
         "ウ" => q[:choice_3],
         "エ" => q[:choice_4]
       }
-      question_text = q[:content]
 
       flex = FlexBuilder.question(
         question_number:   q[:number],
@@ -108,15 +107,22 @@ class LineBotController < ApplicationController
 
       # 回答をテーブルに保存
       user = User.find_by(line_user_id: event.source.user_id)
-      save_answer(user, q.id, user_answer, is_correct) if user && q
+
+      if user && q
+        AnswerRecorder.call(
+          user: user,
+          question: q,
+          answer_choice: user_answer,
+          is_correct: is_correct
+        )
+      end
 
       flex = FlexBuilder.result(
-        is_correct:      is_correct,
-        correct:         correct,
-        question_id:     question_number,
+        is_correct: is_correct,
+        correct: correct,
+        question_id: question_number,
         explanation_url: q&.explanation_url
       )
-
       reply_flex(event.reply_token, flex)
     end
   end
@@ -160,28 +166,9 @@ class LineBotController < ApplicationController
     )
   end
 
-  def save_answer(user, question_id, selected_choice, is_correct)
-    answer = Answer.find_or_initialize_by(
-      user_id: user.id,
-      question_id: question_id
-    )
-    answer.delivered_at ||= Time.current # 初回のみセット
+  def history_message(user)
+    return "学習履歴が見つかりませんでした。\n一度メニューから「問題を解く」を押してください。" unless user
 
-    answer.assign_attributes(
-      answer_choice:    selected_choice,
-      is_correct:       is_correct,
-      last_answered_at: Time.current,
-      review_level:     calc_review_level(answer, is_correct)
-    )
-    answer.save!
-  end
-
-  def calc_review_level(answer, is_correct)
-    current = answer.review_level.to_i
-    is_correct ? [ current + 1, 5 ].min : [ current -1, 0 ].max
-  end
-
-  def history_massage(user)
     answers  = Answer.where(user_id: user.id).includes(:question)
     total   = answers.count
     correct = answers.where(is_correct: true).count
@@ -189,7 +176,13 @@ class LineBotController < ApplicationController
 
     recent_lines = answers.order(last_answered_at: :desc).first(5).map do |a|
       mark = a.is_correct ? "⭕": "❌"
-      "#{mark} #{a.question.year} 問#{a.question.number}"
+      question = a.question
+
+      if question
+        "#{mark} #{question.year} 問#{question.number}"
+      else
+        "#{mark} 問題データが見つかりません"
+      end
     end.join("\n")
 
     <<~TEXT
