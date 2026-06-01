@@ -130,4 +130,4 @@ Messaging API特有の応答ルール（Webhookの処理やプッシュ通知の
 Figma：<https://www.figma.com/design/8MP2CQfrY8XxY6PfP8wS5h/STUDY-LINE-AI?node-id=0-1&p=f&t=wLo3hfSh2NtX13qJ-0>
 
 ### ER図
-[![Image from Gyazo](https://i.gyazo.com/b93cf18a022f90a1234adcbaa1a24d4b.png)](https://gyazo.com/b93cf18a022f90a1234adcbaa1a24d4b)
+[![Image from Gyazo](https://i.gyazo.com/d315561147dcd91003cfa2bc6ed818a4.png)](https://gyazo.com/d315561147dcd91003cfa2bc6ed818a4)
