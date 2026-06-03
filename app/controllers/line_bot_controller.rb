@@ -51,7 +51,7 @@ class LineBotController < ApplicationController
     when "履歴", "学習履歴", "成績"
      user = User.find_or_create_by(line_user_id: event.source.user_id)
      reply_text(event.reply_token, history_message(user))
-    when "設定"
+    when "設定を変える"
       reply_text(event.reply_token, "設定機能は準備中です。")
     else
       reply_text(event.reply_token, "下のメニューから操作してください。\n「問題を解く」で出題します！")
@@ -71,10 +71,10 @@ class LineBotController < ApplicationController
       }
 
       flex = FlexBuilder.question(
-        question_number:   q[:number],
-        question_text: q[:content],
-        choices:       choices,
-        correct:       q[:correct_answer]
+        question_number: q[:number],
+        question_text:   q[:content],
+        choices:         choices,
+        correct:         q[:correct_answer]
       )
 
       Rails.logger.info "=== flex: #{flex.inspect}"
@@ -115,6 +115,10 @@ class LineBotController < ApplicationController
           answer_choice: user_answer,
           is_correct: is_correct
         )
+
+        quality = is_correct ? 4 : 1
+        SpacedRepetitionService.call(answer, quality)
+        answer.save!
       end
 
       flex = FlexBuilder.result(

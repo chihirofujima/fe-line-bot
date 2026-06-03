@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_06_01_091849) do
+ActiveRecord::Schema[7.2].define(version: 2026_06_03_084226) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,12 +20,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_01_091849) do
     t.datetime "delivered_at"
     t.boolean "is_correct"
     t.datetime "last_answered_at"
-    t.integer "review_level"
+    t.integer "review_count", default: 0
     t.integer "answer_choice"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "next_review_at"
-    t.integer "review_count", default: 0, null: false
     t.integer "interval_days", default: 1, null: false
     t.float "easiness_factor", default: 2.5, null: false
   end

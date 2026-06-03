@@ -1,7 +1,4 @@
 class AnswerRecorder
-  MAX_REVIEW_LEVEL = 5
-  MIN_REVIEW_LEVEL = 0
-
   def self.call(user:, question:, answer_choice:, is_correct:)
     new(
       user: user,
@@ -35,17 +32,5 @@ class AnswerRecorder
 
     answer.save!
     answer
-  end
-
-  private
-
-  def next_review_level(answer)
-    current = answer.review_level.to_i
-
-    if @is_correct
-      [ current + 1, MAX_REVIEW_LEVEL ].min
-    else
-      [ current - 1, MIN_REVIEW_LEVEL ].max
-    end
   end
 end

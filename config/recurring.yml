@@ -18,5 +18,5 @@
 development:
   scheduled_push_job:
     class: ScheduledPushJob
-    schedule: "*/10 * * * *"   # 動作確認用：10分実行
+    schedule: "0 9 * * *"
     queue: default
