@@ -26,8 +26,7 @@ class AnswerRecorder
     answer.assign_attributes(
       answer_choice: @answer_choice,
       is_correct: @is_correct,
-      last_answered_at: Time.current,
-      review_level: next_review_level(answer)
+      last_answered_at: Time.current
     )
 
     answer.save!

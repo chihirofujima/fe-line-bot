@@ -109,7 +109,7 @@ class LineBotController < ApplicationController
       user = User.find_by(line_user_id: event.source.user_id)
 
       if user && q
-        AnswerRecorder.call(
+        answer = AnswerRecorder.call(
           user: user,
           question: q,
           answer_choice: user_answer,
