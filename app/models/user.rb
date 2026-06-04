@@ -10,4 +10,5 @@ class User < ApplicationRecord
 
   # 出題中の問題との紐付け（Questionモデルがある場合）
   belongs_to :current_question, class_name: "Question", optional: true
+  has_one :delivery_setting
 end
