@@ -27,7 +27,17 @@ class LineBotController < ApplicationController
     events.each do |event|
       case event
       when Line::Bot::V2::Webhook::FollowEvent
-        User.find_or_create_by(line_user_id: event.source.user_id)
+        user = User.find_or_create_by(line_user_id: event.source.user_id)
+
+        # デフォルトの配信設定を作成（再登録時は既存設定を使う）
+        setting = user.delivery_setting || user.create_delivery_setting!(
+          frequency: "daily",
+          delivery_time_1: Time.zone.parse("09:00")
+        )
+
+        # 初回配信ジョブを積む
+        first_delivery = DeliveryTimeCalculator.call(setting)
+        DeliverQuestionJob.set(wait_until: first_delivery).perform_later(user.id) if first_delivery
 
       when Line::Bot::V2::Webhook::MessageEvent
         case event.message
