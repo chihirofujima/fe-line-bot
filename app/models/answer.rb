@@ -1,4 +1,6 @@
 class Answer < ApplicationRecord
+  belongs_to :user
+  belongs_to :question
   # 今日以前にレビュー予定のものを取得
   scope :due_for_review, -> { where("next_review_at <= ? OR next_review_at IS NULL", Time.current) }
   scope :by_next_review, -> { order(:next_review_at) }
