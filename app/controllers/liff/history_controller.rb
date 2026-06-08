@@ -1,4 +1,4 @@
-class Liff::SettingsController < ApplicationController
+class Liff::HistoryController < ApplicationController
   layout "liff"
   def index
   end
