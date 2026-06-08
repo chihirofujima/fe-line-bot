@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   end
 
   namespace :liff do
-    get 'settings', to: 'settings#index'
-    get 'history',  to: 'history#index'
+    get "settings", to: "settings#index"
+    get "history",  to: "history#index"
   end
 
   root to: proc { [ 200, {}, [ "OK" ] ] }

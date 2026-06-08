@@ -1,7 +1,5 @@
 class Liff::SettingsController < ApplicationController
-  layout 'liff'
-  skip_before_action :verify_authenticity_token
-
+  layout "liff"
   def index
   end
 end
