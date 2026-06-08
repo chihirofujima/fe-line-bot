@@ -14,5 +14,10 @@ Rails.application.routes.draw do
     post "quiz/deliver", to: "quiz#deliver"
   end
 
+  namespace :liff do
+    get 'settings', to: 'settings#index'
+    get 'history',  to: 'history#index'
+  end
+
   root to: proc { [ 200, {}, [ "OK" ] ] }
 end
