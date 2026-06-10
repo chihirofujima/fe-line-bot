@@ -22,7 +22,7 @@ namespace :line do
         },
         {
           bounds: { x: 1667, y: 0, width: 833, height: 843 },
-          action: { type: "message", label: "設定", text: "設定" }
+          action: { type: "uri", label: "設定", uri: "https://liff.line.me/#{ENV.fetch('LIFF_ID_SETTINGS')}" }
         }
       ]
     }
@@ -100,7 +100,7 @@ namespace :line do
         },
         {
           bounds: { x: 1667, y: 0, width: 833, height: 843 },
-          action: { type: "message", label: "設定", text: "設定" }
+          action: { type: "uri", label: "設定", uri: "https://liff.line.me/#{ENV.fetch('LIFF_ID_SETTINGS')}" }
         }
       ]
     }
