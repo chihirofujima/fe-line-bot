@@ -2,4 +2,31 @@ class Liff::SettingsController < ApplicationController
   layout "liff"
   def index
   end
+
+  def current
+    user = User.find_by(line_user_id: params[:line_user_id])
+    return render json: { error: "ユーザーが見つかりません" }, status: :not_found unless user
+
+    setting = DeliverySetting.find_or_initialize_by(user_id: user.id)
+    render json: setting
+  end
+
+  def update
+    user = User.find_by(line_user_id: params[:line_user_id])
+    return render json: { error: "ユーザーが見つかりません" }, status: :not_found unless user
+
+    setting = DeliverySetting.find_or_initialize_by(user_id: user.id)
+
+    if setting.update(delivery_setting_params)
+      render json: { message: "保存しました" }, status: :ok
+    else
+      render json: { errors: setting.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def delivery_setting_params
+    params.permit(:frequency, :delivery_time_1, :delivery_time_2)
+  end
 end

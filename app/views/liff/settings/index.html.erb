@@ -5,23 +5,134 @@
 <script>
   const LIFF_ID = "<%= ENV['LIFF_ID_SETTINGS'] %>";
 
+  // 時間の選択肢を生成（00:00〜23:30、30分刻み）
+  function buildTimeOptions(selectedValue) {
+    let options = '<option value="">未設定</option>';
+    for (let h = 0; h < 24; h++) {
+      for (let m of ["00", "30"]) {
+        const value = `${String(h).padStart(2, "0")}:${m}`;
+        const selected = value === selectedValue ? "selected" : "";
+        options += `<option value="${value}" ${selected}>${value}</option>`;
+      }
+    }
+    return options;
+  }
+
+  // DBの時刻文字列（"2000-01-01T09:00:00+09:00"）から "HH:MM" を取り出す
+  function parseTime(datetimeStr) {
+    if (!datetimeStr) return "";
+    const date = new Date(datetimeStr);
+    const h = String(date.getHours()).padStart(2, "0");
+    const m = String(date.getMinutes()).padStart(2, "0");
+    return `${h}:${m}`;
+  }
+
   liff.init({ liffId: LIFF_ID })
     .then(() => {
-      if (liff.isLoggedIn()) {
-        return liff.getProfile();
-      } else {
+      if (!liff.isLoggedIn()) {
         liff.login();
+        return;
       }
+      return liff.getProfile();
     })
     .then((profile) => {
-      if (profile) {
-        document.getElementById('liff-app').innerHTML =
-          `<p>こんにちは、${profile.displayName}さん！</p>`;
-      }
+      if (!profile) return;
+
+      const lineUserId = profile.userId;
+
+      // 現在の設定をRailsから取得
+      return fetch("/liff/settings/current?line_user_id=" + lineUserId)
+        .then((res) => {
+          if (!res.ok) throw new Error(`サーバーエラー: ${res.status}`);
+          return res.json();
+        })
+        .then((data) => {
+          const time1 = parseTime(data.delivery_time_1);
+          const time2 = parseTime(data.delivery_time_2);
+
+          const frequencyOptions = [
+            { value: "daily",   label: "毎日" },
+            { value: "weekday", label: "平日のみ" },
+            { value: "weekend", label: "土日のみ" },
+          ];
+
+          const radioButtons = frequencyOptions.map(({ value, label }) => {
+            const checked = data.frequency === value ? "checked" : "";
+            return `
+              <label>
+                <input type="radio" name="frequency" value="${value}" ${checked}>
+                ${label}
+              </label>
+            `;
+          }).join("");
+
+          document.getElementById("liff-app").innerHTML = `
+            <div style="padding: 20px;">
+              <h2>配信設定</h2>
+
+              <div style="margin-bottom: 20px;">
+                <p><strong>配信頻度</strong></p>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  ${radioButtons}
+                </div>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <p><strong>配信時間①（必須）</strong></p>
+                <select id="delivery_time_1">
+                  ${buildTimeOptions(time1)}
+                </select>
+              </div>
+
+              <div style="margin-bottom: 20px;">
+                <p><strong>配信時間②（任意）</strong></p>
+                <select id="delivery_time_2">
+                  ${buildTimeOptions(time2)}
+                </select>
+              </div>
+
+              <button id="save-btn" style="padding: 10px 20px;">保存する</button>
+              <p id="message" style="margin-top: 10px;"></p>
+            </div>
+          `;
+
+          // 保存ボタン
+          document.getElementById("save-btn").addEventListener("click", () => {
+            const frequency = document.querySelector('input[name="frequency"]:checked')?.value;
+            const delivery_time_1 = document.getElementById("delivery_time_1").value;
+            const delivery_time_2 = document.getElementById("delivery_time_2").value;
+
+            if (!delivery_time_1) {
+              document.getElementById("message").textContent = "配信時間①は必須です";
+              return;
+            }
+
+            fetch("/liff/settings", {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                line_user_id: lineUserId,
+                frequency,
+                delivery_time_1,
+                delivery_time_2: delivery_time_2 || null,
+              }),
+            })
+              .then((res) => {
+                if (!res.ok) throw new Error(`サーバーエラー: ${res.status}`);
+                return res.json();
+              })
+              .then((result) => {
+                document.getElementById("message").textContent = result.message;
+              })
+              .catch((err) => {
+                document.getElementById("message").textContent = `エラーが発生しました: ${err.message}`;
+              });
+          });
+        });
     })
-    .catch((err) => {
-      console.error('LIFF初期化エラー:', err);
-      document.getElementById('liff-app').innerHTML =
-        `<p>エラーが発生しました: ${err.message}</p>`;
+    .catch((err) => {                         // ← 44行・110行のfetchを拾う
+      console.error("LIFF初期化エラー:", err);
+      document.getElementById("liff-app").textContent =
+        `エラーが発生しました: ${err.message}`;
     });
 </script>
