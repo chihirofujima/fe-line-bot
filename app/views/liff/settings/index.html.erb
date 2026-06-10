@@ -42,7 +42,10 @@
 
       // 現在の設定をRailsから取得
       return fetch("/liff/settings/current?line_user_id=" + lineUserId)
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) throw new Error(`サーバーエラー: ${res.status}`);
+          return res.json();
+        })
         .then((data) => {
           const time1 = parseTime(data.delivery_time_1);
           const time2 = parseTime(data.delivery_time_2);
@@ -127,7 +130,7 @@
           });
         });
     })
-    .catch((err) => {
+    .catch((err) => {                         // ← 44行・110行のfetchを拾う
       console.error("LIFF初期化エラー:", err);
       document.getElementById("liff-app").textContent =
         `エラーが発生しました: ${err.message}`;
