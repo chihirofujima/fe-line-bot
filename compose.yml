@@ -33,6 +33,8 @@ services:
       RAILS_ENV: development
       ADMIN_USER: admin
       ADMIN_PASSWORD: 1234
+      LIFF_ID_SETTINGS: ${LIFF_ID_SETTINGS} 
+      LIFF_ID_HISTORY: ${LIFF_ID_HISTORY} 
     ports:
       - "3000:3000"
     depends_on:
@@ -54,6 +56,8 @@ services:
       RAILS_ENV: development
       ADMIN_USER: admin
       ADMIN_PASSWORD: 1234
+      LIFF_ID_SETTINGS: ${LIFF_ID_SETTINGS} 
+      LIFF_ID_HISTORY: ${LIFF_ID_HISTORY} 
     depends_on:
       - web
 volumes:
