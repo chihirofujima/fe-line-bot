@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get "settings", to: "settings#index"
     get "settings/current", to: "settings#current"
     get "history",  to: "history#index"
+    get "help", to: "help#index"
     patch "settings", to: "settings#update"
   end
 
