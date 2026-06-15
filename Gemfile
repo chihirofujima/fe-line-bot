@@ -21,6 +21,7 @@ gem "jbuilder"
 gem "sassc-rails"
 # LINE Bot連携
 gem "line-bot-api"
+gem "faraday" 
 # 画像アップロード
 gem "image_processing", "~> 1.2"
 gem "aws-sdk-s3", require: false  # S3に保存する場合

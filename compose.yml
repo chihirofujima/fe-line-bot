@@ -35,6 +35,7 @@ services:
       ADMIN_PASSWORD: 1234
       LIFF_ID_SETTINGS: ${LIFF_ID_SETTINGS} 
       LIFF_ID_HISTORY: ${LIFF_ID_HISTORY} 
+      LINE_LOGIN_CHANNEL_ID: ${LINE_LOGIN_CHANNEL_ID}
     ports:
       - "3000:3000"
     depends_on:
@@ -58,6 +59,7 @@ services:
       ADMIN_PASSWORD: 1234
       LIFF_ID_SETTINGS: ${LIFF_ID_SETTINGS} 
       LIFF_ID_HISTORY: ${LIFF_ID_HISTORY} 
+      LINE_LOGIN_CHANNEL_ID: ${LINE_LOGIN_CHANNEL_ID}
     depends_on:
       - web
 volumes:

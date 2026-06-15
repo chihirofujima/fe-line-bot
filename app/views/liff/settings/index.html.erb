@@ -302,7 +302,6 @@
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          line_user_id: lineUserId,
           frequency,
           delivery_time_1,
           delivery_time_2: delivery_time_2 || null,
@@ -335,18 +334,26 @@
         liff.login();
         return;
       }
-      return liff.getProfile();
-    })
-    .then((profile) => {
-      if (!profile) return;
-      const lineUserId = profile.userId;
 
-      return fetch("/liff/settings/current?line_user_id=" + lineUserId)
-        .then((res) => {
-          if (!res.ok) throw new Error(`サーバーエラー: ${res.status}`);
-          return res.json();
-        })
-        .then((data) => renderApp(data, lineUserId));
+      // IDトークンを取得してRailsに送りセッション保存
+      const idToken = liff.getIDToken();
+      return fetch("/liff/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_token: idToken })
+      });
+    })
+    .then((res) => {
+      if (!res || !res.ok) throw new Error("セッションの作成に失敗しました");
+
+        // セッション保存後に設定を取得（line_user_idはもう不要）
+      return fetch("/liff/settings/current");
+    })
+    .then((res) => {
+        if (!res.ok) throw new Error(`サーバーエラー: ${res.status}`);
+        return res.json();
+    })
+    .then((data) => {renderApp(data);
     })
     .catch((err) => {
       console.error("LIFFエラー:", err);

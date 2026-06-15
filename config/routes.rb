@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   end
 
   namespace :liff do
+    post "session", to: "sessions#create"
+
     get "settings", to: "settings#index"
     get "settings/current", to: "settings#current"
     get "history",  to: "history#index"
