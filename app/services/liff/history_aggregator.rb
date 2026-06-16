@@ -18,7 +18,7 @@ class Liff::HistoryAggregator
 
     mastered_count        = @user.answers
                                  .group(:question_id)
-                                 .having('MAX(review_count) >= 3')
+                                 .having("MAX(review_count) >= 3")
                                  .count
                                  .size
     total_questions_tried = @answers.map(&:question_id).uniq.size
