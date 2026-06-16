@@ -1,11 +1,12 @@
 class Liff::SettingsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [ :update, :current ]
   layout "liff"
+
   def index
   end
 
   def current
-    user = User.find_by(line_user_id: params[:line_user_id])
+    user = User.find_by(line_user_id: session[:line_user_id])
     return render json: { error: "ユーザーが見つかりません" }, status: :not_found unless user
 
     setting = DeliverySetting.find_or_initialize_by(user_id: user.id)
@@ -13,7 +14,7 @@ class Liff::SettingsController < ApplicationController
   end
 
   def update
-    user = User.find_by(line_user_id: params[:line_user_id])
+    user = User.find_by(line_user_id: session[:line_user_id])
     return render json: { error: "ユーザーが見つかりません" }, status: :not_found unless user
 
     setting = DeliverySetting.find_or_initialize_by(user_id: user.id)
