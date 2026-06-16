@@ -18,7 +18,7 @@ namespace :line do
         },
         {
           bounds: { x: 833, y: 0, width: 834, height: 843 },
-          action: { type: "message", label: "学習履歴", text: "学習履歴" }
+          action: { type: "uri", label: "学習履歴", uri: "https://liff.line.me/#{ENV.fetch('LIFF_ID_HISTORY')}" }
         },
         {
           bounds: { x: 1667, y: 0, width: 833, height: 843 },
@@ -96,7 +96,7 @@ namespace :line do
         },
         {
           bounds: { x: 833, y: 0, width: 834, height: 843 },
-          action: { type: "message", label: "学習履歴", text: "学習履歴" }
+          action: { type: "uri", label: "学習履歴", uri: "https://liff.line.me/#{ENV.fetch('LIFF_ID_HISTORY')}" }
         },
         {
           bounds: { x: 1667, y: 0, width: 833, height: 843 },
