@@ -23,25 +23,25 @@ body {
 .summary-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .card {
   background: #fff;
   border-radius: 12px;
-  padding: 14px;
+  padding: 10px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .card-icon {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
   margin-bottom: 0px;
 }
 
@@ -54,7 +54,7 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .icon-green  { background-color: #e8f5e9; }
@@ -81,7 +81,7 @@ body {
 }
 
 .card-value {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   color: #222;
   line-height: 1.2;
@@ -166,7 +166,11 @@ body {
 .heatmap-day-col {
   display: flex;
   flex-direction: column;
-  margin-right: 4px;
+  margin-right: 4px; 
+  position: sticky; 
+  left: 0; 
+  background: #fff; 
+  z-index: 2; 
 }
 
 .heatmap-day-label {
@@ -185,14 +189,17 @@ body {
   display: flex;
   flex-direction: column;
   margin-right: 2px;
+  width: 14px;
 }
 
 .heatmap-month-label {
+  width: 16px; 
   height: 14px;
   font-size: 10px;
   color: #888;
   white-space: nowrap;
   margin-bottom: 2px;
+  overflow: visible;
 }
 
 .heatmap-cell {
@@ -211,33 +218,36 @@ body {
 .heatmap-legend {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   margin-top: 10px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto; 
+  white-space: nowrap;
 }
 
 .legend-label {
-  font-size: 10px;
+  font-size: 9px;
   color: #888;
-  margin-right: 4px;
+  margin-right: 2px;
 }
 
 .legend-cell {
   display: inline-block;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 2px;
+  flex-shrink: 0; 
 }
 
 .legend-text {
-  font-size: 10px;
+  font-size: 9px;
   color: #888;
-  margin-right: 6px;
+  margin-right: 3px;
 }
 
 .chart-wrapper {
   position: relative;
-  height: 220px;
+  height: 180px;
 }
 
 .tooltip-box {
@@ -251,6 +261,55 @@ body {
   max-width: 160px;
   z-index: 999;
   pointer-events: none;
+}
+
+.share-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.share-title {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.share-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.share-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #eee;
+  color: #aaa;
+  font-size: 10px;
+  cursor: not-allowed;
+}
+
+.footer-links {
+  text-align: center;
+  margin-top: 4px;
+  padding-bottom: 8px;
+}
+
+.footer-links a {
+  font-size: 11px;
+  color: #999;
+  text-decoration: none;
+}
+
+.footer-divider {
+  font-size: 11px;
+  color: #ccc;
+  margin: 0 6px;
 }
 </style>
 
@@ -278,10 +337,6 @@ body {
       <div class="card-label">定着度 <span class="help" data-tooltip="一度解いた問題のうち定着した割合">?</span></div>
     </div>
     <div class="card-value"><span id="mastery-rate">--</span><span class="card-unit">%</span></div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="mastery-progress" style="width: 0%"></div>
-    </div>
-    <div class="progress-text"><span id="mastery-count">--</span> / <span id="total-tried">--</span>問</div>
   </div>
   <div class="card">
     <div class="card-header">
@@ -305,12 +360,12 @@ body {
       <div id="heatmap-container"></div>
     </div>
     <div class="heatmap-legend">
-      <span class="legend-label">学習した日数</span>
-      <span class="legend-cell level-0"></span><span class="legend-text">0日</span>
-      <span class="legend-cell level-1"></span><span class="legend-text">1日</span>
-      <span class="legend-cell level-2"></span><span class="legend-text">2〜3日</span>
-      <span class="legend-cell level-3"></span><span class="legend-text">4〜6日</span>
-      <span class="legend-cell level-4"></span><span class="legend-text">7以上</span>
+      <span class="legend-label">1日の回答数</span>
+      <span class="legend-cell level-0"></span><span class="legend-text">0問</span>
+      <span class="legend-cell level-1"></span><span class="legend-text">1～5問</span>
+      <span class="legend-cell level-2"></span><span class="legend-text">6〜10問</span>
+      <span class="legend-cell level-3"></span><span class="legend-text">11〜15問</span>
+      <span class="legend-cell level-4"></span><span class="legend-text">16問以上</span>
     </div>
   </div>
 
@@ -324,6 +379,20 @@ body {
     </div>
   </div>
 
+  <!-- SNS共有エリア（枠のみ。機能実装は別Issue） -->
+  <div class="share-section">
+    <div class="share-title">学習の記録をXでシェアしよう！</div>
+    <div class="share-buttons">
+      <button class="share-btn" disabled>X</button>
+    </div>
+  </div>
+
+  <!-- フッターリンク -->
+  <div class="footer-links">
+    <a href="#">利用規約</a>
+    <span class="footer-divider">|</span>
+    <a href="#">プライバシーポリシー</a>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -368,11 +437,11 @@ liff.init({ liffId: LIFF_ID_HISTORY })
 
 // 回答数 → ヒートマップのレベル変換
 function countToLevel(count) {
-  if (!count || count === 0) return 0;
-  if (count === 1) return 1;
-  if (count <= 3) return 2;
-  if (count <= 6) return 3;
-  return 4;
+  if (!count || count === 0) return 0;  // 色なし
+  if (count <= 4) return 1;             // 薄緑（1〜5問）
+  if (count <= 9) return 2;             // 緑（6〜10問）
+  if (count <= 14) return 3;            // 少し濃い緑（11問~15問）
+  return 4;                             // 濃い緑（16問以上）
 }
 
 // 草グリッドを生成
@@ -449,6 +518,9 @@ function buildHeatmap(dailyStats) {
 
   container.appendChild(monthRow);
   container.appendChild(grid);
+
+  const scrollWrapper = document.querySelector(".heatmap-scroll");
+  scrollWrapper.scrollLeft = scrollWrapper.scrollWidth;
 }
 
 // 定着度グラフを生成
@@ -489,9 +561,6 @@ function renderSummary(summary) {
   document.getElementById("mastery-rate").textContent   = summary.mastery_rate;
   document.getElementById("today-answers").textContent  = summary.today_answers;
   document.getElementById("study-days").textContent     = summary.total_study_days + "日";
-  document.getElementById("mastery-count").textContent  = summary.mastered_count;
-  document.getElementById("total-tried").textContent    = summary.total_questions_tried;
-  document.getElementById("mastery-progress").style.width = summary.mastery_rate + "%";
 }
 
 // ツールチップ
