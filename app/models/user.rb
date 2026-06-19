@@ -12,4 +12,5 @@ class User < ApplicationRecord
   belongs_to :current_question, class_name: "Question", optional: true
   has_one :delivery_setting
   has_many :answers
+  has_many :share_tokens, dependent: :destroy
 end

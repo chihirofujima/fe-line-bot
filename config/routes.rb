@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get "settings/current", to: "settings#current"
     get "history",  to: "history#index"
     get "history/data", to: "history#data"
+    post "history/share_tokens", to: "history#create_share_token"
     get "help", to: "help#index"
     patch "settings", to: "settings#update"
   end
