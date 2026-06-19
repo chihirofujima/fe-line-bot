@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_06_07_033753) do
+ActiveRecord::Schema[7.2].define(version: 2026_06_17_151418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,17 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_07_033753) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "year"
+  end
+
+  create_table "share_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "token", null: false
+    t.jsonb "snapshot_data", default: {}, null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_share_tokens_on_token", unique: true
+    t.index ["user_id"], name: "index_share_tokens_on_user_id"
   end
 
   create_table "solid_queue_blocked_executions", force: :cascade do |t|
@@ -183,6 +194,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_07_033753) do
     t.integer "state"
   end
 
+  add_foreign_key "share_tokens", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
