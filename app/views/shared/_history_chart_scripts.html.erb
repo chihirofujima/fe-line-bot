@@ -1,0 +1,143 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// 回答数 → ヒートマップのレベル変換
+function countToLevel(count) {
+  if (!count || count === 0) return 0;  // 色なし
+  if (count <= 4) return 1;             // 薄緑（1〜5問）
+  if (count <= 9) return 2;             // 緑（6〜10問）
+  if (count <= 14) return 3;            // 少し濃い緑（11問~15問）
+  return 4;                             // 濃い緑（16問以上）
+}
+
+// 草グリッドを生成
+function buildHeatmap(dailyStats) {
+  const container = document.getElementById("heatmap-container");
+  const DAY_LABELS = ["月", "火", "水", "木", "金", "<span class='sat'>土</span>", "<span class='sun'>日</span>"];
+
+  // 今日から26週前の月曜日を起点にする
+  const today = new Date();
+  const dayOfWeek = (today.getDay() + 6) % 7; // 月=0, 日=6
+  const startDate = new Date(today);
+  startDate.setDate(today.getDate() - dayOfWeek - 26 * 7);
+
+  // 週ごとに列を生成
+  const weeks = [];
+  let current = new Date(startDate);
+  while (current <= today) {
+    const week = [];
+    for (let d = 0; d < 7; d++) {
+      const dateStr = current.toISOString().slice(0, 10);
+      const count = dailyStats[dateStr] || 0;
+      week.push({ dateStr, count, isFuture: current > today });
+      current.setDate(current.getDate() + 1);
+    }
+    weeks.push(week);
+  }
+
+  // 月ラベル行を生成
+  const monthRow = document.createElement("div");
+  monthRow.className = "heatmap-month-row";
+  monthRow.innerHTML = `<div class="heatmap-day-col"><div class="heatmap-month-label"></div></div>`;
+
+  let lastMonth = -1;
+  weeks.forEach(week => {
+    const col = document.createElement("div");
+    col.className = "heatmap-col";
+    const firstDay = new Date(week[0].dateStr);
+    const month = firstDay.getMonth() + 1;
+    const label = document.createElement("div");
+    label.className = "heatmap-month-label";
+    label.textContent = month !== lastMonth ? `${month}月` : "";
+    if (month !== lastMonth) lastMonth = month;
+    col.appendChild(label);
+    monthRow.appendChild(col);
+  });
+
+  // グリッド本体
+  const grid = document.createElement("div");
+  grid.className = "heatmap-grid";
+
+  // 曜日ラベル列
+  const dayCol = document.createElement("div");
+  dayCol.className = "heatmap-day-col";
+  DAY_LABELS.forEach(label => {
+    const cell = document.createElement("div");
+    cell.className = "heatmap-day-label";
+    cell.innerHTML = label;
+    dayCol.appendChild(cell);
+  });
+  grid.appendChild(dayCol);
+
+  // 週ごとの列
+  weeks.forEach(week => {
+    const col = document.createElement("div");
+    col.className = "heatmap-col";
+    week.forEach(({ dateStr, count, isFuture }) => {
+      const cell = document.createElement("div");
+      cell.className = `heatmap-cell level-${isFuture ? 0 : countToLevel(count)}`;
+      cell.title = `${dateStr}: ${count}問`;
+      col.appendChild(cell);
+    });
+    grid.appendChild(col);
+  });
+
+  container.appendChild(monthRow);
+  container.appendChild(grid);
+
+  const scrollWrapper = document.querySelector(".heatmap-scroll");
+  scrollWrapper.scrollLeft = scrollWrapper.scrollWidth;
+}
+
+// 定着度グラフを生成
+function buildMasteryChart(masteryHistory) {
+  const ctx = document.getElementById("mastery-chart").getContext("2d");
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: masteryHistory.map(d => d.date),
+      datasets: [{
+        data: masteryHistory.map(d => d.mastery_rate),
+        borderColor: "#4CAF50",
+        backgroundColor: "rgba(76, 175, 80, 0.1)",
+        fill: true,
+        tension: 0.3,
+        pointBackgroundColor: "#fff",
+        pointBorderColor: "#4CAF50",
+        pointRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          min: 0, max: 100,
+          ticks: { callback: v => v + "%" }
+        }
+      }
+    }
+  });
+}
+
+// サマリーカードに値をセット
+function renderSummary(summary) {
+  document.getElementById("total-answers").textContent  = summary.total_answers.toLocaleString();
+  document.getElementById("accuracy-rate").textContent  = summary.accuracy_rate;
+  document.getElementById("mastery-rate").textContent   = summary.mastery_rate;
+  document.getElementById("today-answers").textContent  = summary.today_answers;
+  document.getElementById("study-days").textContent     = summary.total_study_days + "日";
+}
+
+// ツールチップ
+const tooltip = document.getElementById("tooltip");
+document.querySelectorAll(".help[data-tooltip]").forEach(el => {
+  el.addEventListener("click", (e) => {
+    const text = el.dataset.tooltip;
+    tooltip.textContent = text;
+    tooltip.style.display = "block";
+    tooltip.style.left = (e.clientX - 80) + "px";
+    tooltip.style.top  = (e.clientY + 12) + "px";
+    setTimeout(() => { tooltip.style.display = "none"; }, 2500);
+  });
+});
+</script>
