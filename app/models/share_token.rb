@@ -1,4 +1,3 @@
-# app/models/share_token.rb
 class ShareToken < ApplicationRecord
   belongs_to :user
 
