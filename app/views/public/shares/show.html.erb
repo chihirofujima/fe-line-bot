@@ -1,0 +1,17 @@
+<% content_for :og_title, "fetokkuユーザーの学習記録" %>
+<% content_for :og_description, "正答率#{@stats[:accuracy_rate]}% / 定着率#{@stats[:mastery_rate]}%" %>
+<% content_for :og_image, image_url("ogp_default.png") %>
+
+<%= render "shared/history_dashboard", share_section: :public %>
+<%= render "shared/history_chart_scripts" %>
+
+<script>
+  // fetchせず、コントローラーから渡されたデータをそのまま使う
+  const summary = <%= raw @stats.to_json %>;
+  const dailyStats = <%= raw @daily_stats.to_json %>;
+  const masteryHistory = <%= raw @mastery_history.to_json %>;
+
+  renderSummary(summary);
+  buildHeatmap(dailyStats);
+  buildMasteryChart(masteryHistory);
+</script>

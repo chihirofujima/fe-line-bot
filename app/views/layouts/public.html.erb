@@ -1,0 +1,20 @@
+<%# app/views/layouts/public.html.erb %>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title><%= yield(:og_title) || "fetokku - 学習記録" %></title>
+
+  <meta property="og:title" content="<%= yield(:og_title) %>">
+  <meta property="og:description" content="<%= yield(:og_description) %>">
+  <meta property="og:image" content="<%= yield(:og_image) %>">
+  <meta property="og:url" content="<%= request.original_url %>">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <%= stylesheet_link_tag "application" %>
+</head>
+<body>
+  <%= yield %>
+</body>
+</html>

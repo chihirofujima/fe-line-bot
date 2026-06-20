@@ -78,6 +78,10 @@ Rails.application.configure do
   # caching is enabled.
   config.action_mailer.perform_caching = false
 
+  Rails.application.routes.default_url_options[:host] = ENV.fetch("APP_HOST", "fetokku.onrender.com")
+  # config.force_ssl = true があるので http ではなく https を使うよう明示
+  Rails.application.routes.default_url_options[:protocol] = "https"
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
