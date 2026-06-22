@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   get "share/:token", to: "public/shares#show", as: :public_share
+  get "share/:token/og_image", to: "public/shares#og_image", as: :public_share_og_image
 
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
