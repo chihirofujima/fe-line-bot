@@ -11,9 +11,12 @@ FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 # Rails app lives here
 WORKDIR /rails
 
+# ロケールを設定（日本語等のマルチバイト文字処理のため）
+ENV LANG=C.UTF-8
+
 # Install base packages
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client imagemagick fonts-noto-cjk && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Set production environment

@@ -16,5 +16,17 @@ module Public
       @daily_stats      = data[:daily_stats]
       @mastery_history  = data[:mastery_history]
     end
+
+    def og_image
+      share_token = ShareToken.find_by(token: params[:token])
+      return head :not_found unless share_token
+      stats = Liff::HistoryAggregator.new(share_token.user).call
+
+      png = Rails.cache.fetch("ogp_image/#{share_token.token}/#{Date.current}") do
+        Ogp::ImageGenerator.new(stats).call
+      end
+
+      send_data png, type: "image/png", disposition: "inline"
+    end
   end
 end

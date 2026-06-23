@@ -2,8 +2,10 @@
 FROM ruby:3.4.8
 
 # 環境変数の設定
-ENV LANG C.UTF-8  # 日本語対応
-ENV TZ Asia/Tokyo # タイムゾーンを日本に設定
+# 日本語対応
+ENV LANG C.UTF-8
+# タイムゾーンを日本に設定
+ENV TZ Asia/Tokyo
 
 # 必要なパッケージのインストール
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
@@ -11,10 +13,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     build-essential \
     libpq-dev \
     nodejs \
-    vim
+    vim \
+    imagemagick \
+    fonts-noto-cjk
 
-# Corepackを有効にして、最新のYarnを使えるようにする
-# これにより、複雑なリポジトリ登録なしでyarnが使えるようになります
+# Corepackを有効にして、最新のYarnを使えるようにする。これにより、複雑なリポジトリ登録なしでyarnが使えるようになる。
 RUN corepack enable
 
 # アプリケーションディレクトリの作成
