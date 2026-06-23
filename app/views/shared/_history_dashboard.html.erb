@@ -288,9 +288,16 @@ body {
   height: 48px;
   border-radius: 50%;
   border: none;
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.share-btn:disabled {
   background: #eee;
   color: #aaa;
-  font-size: 10px;
   cursor: not-allowed;
 }
 
@@ -384,7 +391,50 @@ body {
     <div class="share-section">
       <div class="share-title">学習の記録をXでシェアしよう！</div>
       <div class="share-buttons">
-        <button class="share-btn" disabled>X</button>
+        <button class="share-btn" id="x-share-btn">X</button>
       </div>
     </div>
   <% end %>
+</div><!-- ← .history-container を閉じる（もともと無かったので追加） -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const shareBtn = document.getElementById('x-share-btn');
+    if (!shareBtn) return;
+
+    shareBtn.addEventListener('click', async function () {
+      shareBtn.disabled = true;
+      shareBtn.textContent = "...";
+
+      try {
+        const response = await fetch('/liff/history/share_tokens', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin'
+        });
+
+        if (!response.ok) {
+          throw new Error('share_token request failed');
+        }
+
+        const data = await response.json();
+        const shareUrl = data.share_url;
+
+        const tweetText = "基本情報技術者試験、学習を続けています📚";
+
+        const intentUrl = "https://twitter.com/intent/tweet"
+          + "?text=" + encodeURIComponent(tweetText)
+          + "&url=" + encodeURIComponent(shareUrl);
+
+        liff.openWindow({ url: intentUrl, external: true });
+
+      } catch (error) {
+        console.error(error);
+        alert("シェア用リンクの作成に失敗しました。時間をおいて再度お試しください。");
+      } finally {
+        shareBtn.disabled = false;
+        shareBtn.textContent = "X";
+      }
+    });
+  });
+</script>
