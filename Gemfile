@@ -23,7 +23,7 @@ gem "sassc-rails"
 gem "line-bot-api"
 gem "faraday"
 # 画像アップロード
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 2.0"
 
 gem "mini_magick", "~> 4.12"
 
