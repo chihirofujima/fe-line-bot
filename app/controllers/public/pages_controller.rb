@@ -1,5 +1,5 @@
 class Public::PagesController < ApplicationController
-  layout 'public'
+  layout "public"
 
   def terms; end
   def privacy; end
