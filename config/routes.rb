@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get "share/:token", to: "public/shares#show", as: :public_share
   get "share/:token/og_image", to: "public/shares#og_image", as: :public_share_og_image
 
+  get "/terms", to: "public/pages#terms", as: :terms
+  get "/privacy", to: "public/pages#privacy", as: :privacy
+
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
   namespace :api do
