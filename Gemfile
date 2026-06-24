@@ -24,10 +24,10 @@ gem "line-bot-api"
 gem "faraday"
 # 画像アップロード
 gem "image_processing", "~> 1.2"
+
 gem "mini_magick", "~> 4.12"
+
 gem "aws-sdk-s3", require: false  # S3に保存する場合
-# Bootstrap
-gem "bootstrap", "~> 5.3"
 
 gem "csv"
 

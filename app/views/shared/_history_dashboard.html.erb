@@ -318,6 +318,27 @@ body {
   color: #ccc;
   margin: 0 6px;
 }
+
+.legal-links {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 12px;
+  color: #888;
+}
+
+.legal-links a {
+  color: #888;
+  text-decoration: none;
+}
+
+.legal-links a:active,
+.legal-links a:hover {
+  text-decoration: underline;
+}
+
+.legal-links-divider {
+  margin: 0 6px;
+}
 </style>
 
 <div class="history-container">
@@ -386,7 +407,7 @@ body {
     </div>
   </div>
 
-  <!-- SNS共有エリア（枠のみ。機能実装は別Issue） -->
+  <!-- SNS共有エリア -->
   <% if share_section == :own %>
     <div class="share-section">
       <div class="share-title">学習の記録をXでシェアしよう！</div>
@@ -395,7 +416,16 @@ body {
       </div>
     </div>
   <% end %>
-</div><!-- ← .history-container を閉じる（もともと無かったので追加） -->
+
+  <!-- 利用規約・プライバシーポリシー -->
+<div class="legal-links"
+     data-terms-url="<%= terms_url %>"
+     data-privacy-url="<%= privacy_url %>">
+  <a href="#" id="terms-link">利用規約</a>
+  <span class="legal-links-divider">｜</span>
+  <a href="#" id="privacy-link">プライバシーポリシー</a>
+</div>
+</div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -436,5 +466,22 @@ body {
         shareBtn.textContent = "X";
       }
     });
+
+    const legalLinks = document.querySelector('.legal-links');
+    if (legalLinks) {
+      const termsUrl = legalLinks.dataset.termsUrl;
+      const privacyUrl = legalLinks.dataset.privacyUrl;
+
+      document.getElementById('terms-link')?.addEventListener('click', function (e) {
+        e.preventDefault();
+        liff.openWindow({ url: termsUrl, external: true });
+      });
+
+      document.getElementById('privacy-link')?.addEventListener('click', function (e) {
+        e.preventDefault();
+        liff.openWindow({ url: privacyUrl, external: true });
+      });
+    }
+
   });
 </script>
