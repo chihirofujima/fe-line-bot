@@ -1,87 +1,41 @@
-<style>
-  body {
-    background: #f0f2f0;
-    margin: 0;
-    font-family: 'Noto Sans JP', sans-serif;
-  }
+<% content_for :og_title, "fetokkuガイド（使い方） | fetokku" %>
+<% content_for :og_description, "fetokkuの使い方をご案内します。" %>
 
-  .help-wrap {
-    padding: 12px;
-    max-width: 390px;
-    margin: 0 auto;
-  }
+<div class="legal-page">
+  <header class="legal-header">
+    <span class="legal-logo">FETOKKU</span>
+    <a href="<%= @liff_settings_url %>" class="legal-back-btn">← 戻る</a>
+  </header>
 
-  .help-card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 10px;
-  }
+  <main class="legal-content">
+    <h1>🦉 fetokkuガイド</h1>
 
-  .help-card h2 {
-    margin-top: 0;
-    font-size: 16px;
-  }
+    <p class="legal-lead">
+      fetokkuは、基本情報技術者試験の学習をLINEで続けられるサービスです。
+      ここでは基本的な使い方をご案内します。
+    </p>
 
-  .help-card p {
-    color: #555;
-    line-height: 1.7;
-  }
-
-  .feature {
-    background: #fff8e1;
-  }
-
-  .back-link {
-    display: block;
-    text-align: center;
-    margin-top: 16px;
-    color: #42a5f5;
-    text-decoration: none;
-    font-weight: 600;
-  }
-</style>
-
-<div class="help-container">
-  <h1>🦉 fetokkuの使い方</h1>
-
-  <div class="help-card">
     <h2>① 学習設定</h2>
     <p>
-      配信頻度と配信時間を設定します。
+      配信頻度と配信時間を設定します。あなたの生活スタイルに合わせて、毎日・平日のみ・土日のみから選べます。
     </p>
-  </div>
 
-  <div class="help-card">
     <h2>② 問題を解く</h2>
     <p>
-      設定した時間になると問題が届きます。
-      メニューからいつでも学習することもできます。
+      設定した時間になると問題が届きます。リッチメニューからいつでも学習することもできます。
     </p>
-  </div>
 
-  <div class="help-card">
     <h2>③ 学習履歴</h2>
     <p>
       正解率や学習記録を確認できます。
     </p>
-  </div>
 
-  <div class="help-card feature">
     <h2>📚 fetokkuの特徴</h2>
-
     <p>
       回答結果に応じて問題を自動で再出題します。
     </p>
-
     <p>
-      苦手な問題は早めに、
-      正解した問題は忘れた頃に出題されるため、
-      効率よく復習できます。
+      苦手な問題は早めに、正解した問題は忘れた頃に出題されるため、効率よく復習できます。
     </p>
-  </div>
-
-  <button onclick="history.back()">
-    ← 戻る
-  </button>
+  </main>
 </div>
