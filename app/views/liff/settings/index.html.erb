@@ -54,11 +54,11 @@
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .setting-icon.green  { background: #e8f5e9; }
+  .setting-icon.blue   { background: #e3f2fd; }
   .setting-icon.orange { background: #fff3e0; }
   .setting-label { font-size: 11px; color: #888; margin: 0; }
   .setting-value { font-size: 17px; font-weight: 700; margin: 1px 0 0; }
-  .setting-value.green  { color: #43a047; }
+  .setting-value.blue   { color: #1976d2; }
   .setting-value.orange { color: #ef6c00; }
   .setting-desc  { font-size: 11px; color: #bbb; margin: 1px 0 0; }
 
@@ -84,8 +84,8 @@
     font-family: 'Noto Sans JP', sans-serif;
   }
   .freq-btn.active {
-    border: 2px solid #43a047;
-    background: #e8f5e9; color: #43a047; font-weight: 600;
+    border: 2px solid #1976d2;
+    background: #e3f2fd; color: #1976d2; font-weight: 600;
   }
 
   .hint-box {
@@ -98,7 +98,7 @@
 
   .btn-save {
     width: 100%; padding: 12px; border-radius: 12px;
-    background: #43a047; border: none; color: #fff;
+    background: #1976d2; border: none; color: #fff;
     font-size: 15px; font-weight: 600; cursor: pointer;
     margin-bottom: 8px;
     -webkit-tap-highlight-color: transparent;
@@ -106,21 +106,23 @@
   }
   .btn-save:active { opacity: 0.85; }
 
-  .btn-history {
+  .btn-guide {
     width: 100%; padding: 11px; border-radius: 12px;
-    background: #fff; border: 2px solid #43a047;
-    color: #43a047; font-size: 14px; font-weight: 600;
+    background: #fff; border: 2px solid #1976d2;
+    color: #1976d2; font-size: 14px; font-weight: 600;
     cursor: pointer; display: flex; align-items: center;
     justify-content: center; gap: 8px;
     -webkit-tap-highlight-color: transparent;
     font-family: 'Noto Sans JP', sans-serif;
+    text-decoration: none;
+    box-sizing: border-box;
   }
-  .btn-history:active { opacity: 0.85; }
+  .btn-guide:active { opacity: 0.85; }
+  .guide-icon { font-size: 16px; line-height: 1; }
 </style>
 
 <script>
   const LIFF_ID_SETTINGS = "<%= ENV['LIFF_ID_SETTINGS'] %>";
-  const LIFF_ID_HISTORY  = "<%= ENV['LIFF_ID_HISTORY'] %>";
 
   function showToast() {
     const toast = document.getElementById("toast");
@@ -191,7 +193,7 @@
 
         <div class="header-area">
           <div class="header-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#43a047" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
               <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
             </svg>
           </div>
@@ -224,14 +226,14 @@
 
         <div class="setting-card">
           <div class="setting-row">
-            <div class="setting-icon green">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#43a047" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="setting-icon blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
               </svg>
             </div>
             <div>
               <p class="setting-label">配信時間①（必須）</p>
-              <p class="setting-value green" id="time1-display">${time1 || "-- : --"}</p>
+              <p class="setting-value blue" id="time1-display">${time1 || "-- : --"}</p>
             </div>
           </div>
           <select id="delivery_time_1"></select>
@@ -239,14 +241,14 @@
 
         <div class="setting-card">
           <div class="setting-row">
-            <div class="setting-icon green">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#43a047" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="setting-icon blue">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1976d2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
               </svg>
             </div>
             <div>
               <p class="setting-label">配信時間②（任意）</p>
-              <p class="setting-value green" id="time2-display">${time2 || "-- : --"}</p>
+              <p class="setting-value blue" id="time2-display">${time2 || "-- : --"}</p>
             </div>
           </div>
           <select id="delivery_time_2"></select>
@@ -258,13 +260,9 @@
 
         <button class="btn-save" id="save-btn">保存する</button>
 
-        <button class="btn-history" id="history-btn">
-          📊 学習状況を確認する ›
+        <button class="btn-guide" id="guide-btn">
+          <span class="guide-icon">🦉</span> fetokkuガイド（使い方） ›
         </button>
-
-        <a href="/liff/help" class="help-link">
-          ❓使い方を見る
-         </a>
       </div>
     `;
 
@@ -308,7 +306,7 @@
         }),
       })
         .then((res) => res.json())
-        .then((result) => {                 
+        .then((result) => {
           if (result.errors) {
             showErrorToast(result.errors.join("、"));
           } else {
@@ -320,10 +318,10 @@
         });
     });
 
-    document.getElementById("history-btn").addEventListener("click", () => {
+    document.getElementById("guide-btn").addEventListener("click", () => {
       liff.openWindow({
-        url: `https://liff.line.me/${LIFF_ID_HISTORY}`,
-        external: false,
+        url: `${window.location.origin}/liff/help`,
+        external: true,
       });
     });
   }

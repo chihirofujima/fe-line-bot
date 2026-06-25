@@ -25,6 +25,9 @@
   border-bottom: 1px solid #eef2f7;
   border-radius: 12px 12px 0 0;
   box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .legal-logo {
@@ -130,6 +133,25 @@
   background-color: #eef6ff;
   color: #155fa0;
   font-weight: 700;
+}
+
+.legal-back-btn {
+  padding: 6px 12px;
+  border: 1px solid #d9e2ec;
+  border-radius: 8px;
+  background: #fff;
+  color: #1d78d6;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.legal-back-btn:active {
+  opacity: 0.85;
 }
 
 @media (min-width: 768px) {
