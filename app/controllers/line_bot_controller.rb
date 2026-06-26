@@ -57,16 +57,12 @@ class LineBotController < ApplicationController
     text = event.message.text.strip
     case text
     when "問題を解く"
-     handle_message(event)
-    when "履歴", "学習履歴", "成績"
-     user = User.find_or_create_by(line_user_id: event.source.user_id)
-     reply_text(event.reply_token, history_message(user))
-    when "設定を変える"
-      reply_text(event.reply_token, "設定機能は準備中です。")
+      handle_message(event)
     else
-      reply_text(event.reply_token, "下のメニューから操作してください。\n「問題を解く」で出題します！")
+      reply_text(event.reply_token, "下のメニューから操作をお願いいたします！")
     end
   end
+
   # テキスト受信 → ランダムに問題を出題
   def handle_message(event)
     begin
@@ -179,37 +175,5 @@ class LineBotController < ApplicationController
     @parser ||= Line::Bot::V2::WebhookParser.new(
       channel_secret: ENV.fetch("LINE_CHANNEL_SECRET")
     )
-  end
-
-  def history_message(user)
-    return "学習履歴が見つかりませんでした。\n一度メニューから「問題を解く」を押してください。" unless user
-
-    answers  = Answer.where(user_id: user.id).includes(:question)
-    total   = answers.count
-    correct = answers.where(is_correct: true).count
-    rate    = total.zero? ? 0 : (correct.to_f / total * 100).round(1)
-
-    recent_lines = answers.order(last_answered_at: :desc).first(5).map do |a|
-      mark = a.is_correct ? "⭕": "❌"
-      question = a.question
-
-      if question
-        "#{mark} #{question.year} 問#{question.number}"
-      else
-        "#{mark} 問題データが見つかりません"
-      end
-    end.join("\n")
-
-    <<~TEXT
-      📊 あなたの学習履歴
-
-      回答数：#{total}問
-      正解数：#{correct}問
-      正答率：#{rate}%
-
-      ━━━━━━━━━━
-      📝 直近の回答
-      #{recent_lines.presence || "まだ回答がありません"}
-    TEXT
   end
 end
