@@ -84,7 +84,8 @@ class LineBotController < ApplicationController
         question_number: q[:number],
         question_text:   q[:content],
         choices:         choices,
-        correct:         q[:correct_answer]
+        correct:         q[:correct_answer],
+        year:            q[:year]
       )
 
       Rails.logger.info "=== flex: #{flex.inspect}"
