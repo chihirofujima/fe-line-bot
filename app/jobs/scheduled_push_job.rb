@@ -22,9 +22,10 @@ class ScheduledPushJob < ApplicationJob
 
     flex = FlexBuilder.question(
       question_number: q[:number],
-      question_text: q[:content],
-      choices:       choices,
-      correct:       q[:correct_answer]
+      question_text:   q[:content],
+      choices:         choices,
+      correct:         q[:correct_answer],
+      year:            q[:year]
     )
 
     User.find_each do |user|

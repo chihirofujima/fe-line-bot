@@ -56,7 +56,8 @@ class DeliverQuestionJob < ApplicationJob
       question_number: question.number,
       question_text:   question.content,
       choices:         choices,
-      correct:         question.correct_answer
+      correct:         question.correct_answer,
+      year:             question.year
     )
 
     client = Line::Bot::V2::MessagingApi::ApiClient.new(
