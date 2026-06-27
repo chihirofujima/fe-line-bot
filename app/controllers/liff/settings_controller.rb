@@ -18,8 +18,13 @@ class Liff::SettingsController < ApplicationController
     return render json: { error: "ユーザーが見つかりません" }, status: :not_found unless user
 
     setting = DeliverySetting.find_or_initialize_by(user_id: user.id)
+    is_new_setting = setting.new_record?
 
     if setting.update(delivery_setting_params)
+      if is_new_setting
+        next_time = DeliveryTimeCalculator.call(setting)
+        DeliverQuestionJob.set(wait_until: next_time).perform_later(user.id) if next_time
+      end
       render json: { message: "保存しました" }, status: :ok
     else
       render json: { errors: setting.errors.full_messages }, status: :unprocessable_entity
