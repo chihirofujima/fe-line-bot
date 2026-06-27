@@ -59,7 +59,6 @@ module FlexBuilder
             "wrap"   => true,
             "color"   => "#333333",
             "flex"    => 1,
-            "wrap"    => true,
             "gravity" => "center"
           }
         ]
