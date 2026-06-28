@@ -28,6 +28,7 @@ class LineBotController < ApplicationController
       case event
       when Line::Bot::V2::Webhook::FollowEvent
         user = User.find_or_create_by(line_user_id: event.source.user_id)
+        is_new_user = user.delivery_setting.nil?
 
         # デフォルトの配信設定を作成（再登録時は既存設定を使う）
         setting = user.delivery_setting || user.create_delivery_setting!(
@@ -35,9 +36,11 @@ class LineBotController < ApplicationController
           delivery_time_1: Time.zone.parse("09:00")
         )
 
-        # 初回配信ジョブを積む
-        first_delivery = DeliveryTimeCalculator.call(setting)
-        DeliverQuestionJob.set(wait_until: first_delivery).perform_later(user.id) if first_delivery
+        # 初回配信ジョブを積む（新規ユーザーのみ。再フォロー時は既にジョブが動いているため、二重に積まないようにする）
+        if is_new_user
+          first_delivery = DeliveryTimeCalculator.call(setting)
+          DeliverQuestionJob.set(wait_until: first_delivery).perform_later(user.id) if first_delivery
+        end
 
       when Line::Bot::V2::Webhook::MessageEvent
         case event.message
