@@ -13,15 +13,15 @@ namespace :line do
       chatBarText: "メニュー",
       areas: [
         {
-          bounds: { x: 0, y: 0, width: 721, height: 728 },
+          bounds: { x: 0, y: 0, width: 833, height: 843 },
           action: { type: "message", label: "問題を解く", text: "問題を解く" }
         },
         {
-          bounds: { x: 721, y: 0, width: 720, height: 728 },
+          bounds: { x: 833, y: 0, width: 834, height: 843 },
           action: { type: "uri", label: "学習履歴", uri: "https://liff.line.me/#{ENV.fetch('LIFF_ID_HISTORY')}" }
         },
         {
-          bounds: { x: 1441, y: 0, width: 720, height: 728 },
+          bounds: { x: 1667, y: 0, width: 833, height: 843 },
           action: { type: "uri", label: "設定", uri: "https://liff.line.me/#{ENV.fetch('LIFF_ID_SETTINGS')}" }
         }
       ]
@@ -85,21 +85,21 @@ namespace :line do
 
     puts "=== リッチメニュー作成 ==="
     menu = {
-      size: { width: 2161, height: 728 },
+      size: { width: 2500, height: 843 },
       selected: true,
       name: "fetokkuメニュー",
       chatBarText: "メニュー",
       areas: [
         {
-          bounds: { x: 0, y: 0, width: 721, height: 728 },
+          bounds: { x: 0, y: 0, width: 833, height: 843 },
           action: { type: "message", label: "問題を解く", text: "問題を解く" }
         },
         {
-          bounds: { x: 721, y: 0, width: 720, height: 728 },
+          bounds: { x: 833, y: 0, width: 834, height: 843 },
           action: { type: "uri", label: "学習履歴", uri: "https://liff.line.me/#{ENV.fetch('LIFF_ID_HISTORY')}" }
         },
         {
-          bounds: { x: 1441, y: 0, width: 720, height: 728 },
+          bounds: { x: 1667, y: 0, width: 833, height: 843 },
           action: { type: "uri", label: "設定", uri: "https://liff.line.me/#{ENV.fetch('LIFF_ID_SETTINGS')}" }
         }
       ]
