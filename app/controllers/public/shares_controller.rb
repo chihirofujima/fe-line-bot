@@ -20,7 +20,9 @@ module Public
     def og_image
       share_token = ShareToken.find_by(token: params[:token])
       return head :not_found unless share_token
-      stats = Liff::HistoryAggregator.new(share_token.user).call
+
+      data = Liff::HistoryAggregator.new(share_token.user).call
+      stats = data[:summary]
 
       png = Rails.cache.fetch("ogp_image/#{share_token.token}/#{Date.current}") do
         Ogp::ImageGenerator.new(stats).call
