@@ -62,7 +62,7 @@ namespace :line do
   task set_default_rich_menu: :environment do
     require "net/http"
     token = ENV.fetch("LINE_CHANNEL_TOKEN")
-    rich_menu_id = "richmenu-a4de1bbd6a6e40be45ada89fe7aa51d9"
+    rich_menu_id = "richmenu-143ae9535ed3a691e932e08ee4479ce0"
 
     uri = URI("https://api.line.me/v2/bot/user/all/richmenu/#{rich_menu_id}")
     req = Net::HTTP::Post.new(uri)
