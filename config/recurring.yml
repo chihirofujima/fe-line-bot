@@ -1,22 +1,2 @@
-# examples:
-#   periodic_cleanup:
-#     class: CleanSoftDeletedRecordsJob
-#     queue: background
-#     args: [ 1000, { batch_size: 500 } ]
-#     schedule: every hour
-#   periodic_cleanup_with_command:
-#     command: "SoftDeletedRecord.due.delete_all"
-#     priority: 2
-#     schedule: at 5am every day
-
-# production:　# ←Solid Queue使用時にコメントアウト削除
-#  scheduled_push_job:
-#    class: ScheduledPushJob
-#    schedule: "0 23 * * *"  # 毎日朝8時JST（UTC 23:00）
-#    queue: default
-
-development:
-  scheduled_push_job:
-    class: ScheduledPushJob
-    schedule: "0 9 * * *"
-    queue: default
+# 定期ジョブはDeliverQuestionJobによるユーザーごとの動的スケジューリングで実装済み
+# (recurring.ymlによる固定スケジュール定期実行は不使用)

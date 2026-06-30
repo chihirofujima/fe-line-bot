@@ -17,10 +17,6 @@ Rails.application.routes.draw do
 
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
-  namespace :api do
-    post "quiz/deliver", to: "quiz#deliver"
-  end
-
   namespace :liff do
     post "session", to: "sessions#create"
 
