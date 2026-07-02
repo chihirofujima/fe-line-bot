@@ -25,6 +25,7 @@ class DeliverQuestionJob < ApplicationJob
   private
 
   def select_question(user)
+    Rails.logger.debug "DEBUG: rand=#{rand}, REVIEW_RATIO=#{REVIEW_RATIO}"
     if rand < REVIEW_RATIO
       # 復習問題を取得（SM-2でnext_review_atが来ているもの）
       review_question = Answer.where(user_id: user.id)

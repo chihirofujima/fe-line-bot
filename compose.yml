@@ -62,6 +62,23 @@ services:
       LINE_LOGIN_CHANNEL_ID: ${LINE_LOGIN_CHANNEL_ID}
     depends_on:
       - web
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bundle exec rspec
+    volumes:
+      - .:/myapp
+      - bundle_data:/usr/local/bundle:cached
+      - node_modules:/myapp/node_modules
+    environment:
+      TZ: Asia/Tokyo
+      RAILS_ENV: test
+      LINE_CHANNEL_SECRET: ${LINE_CHANNEL_SECRET}
+      LINE_CHANNEL_TOKEN: ${LINE_CHANNEL_TOKEN}
+    depends_on:
+      db:
+        condition: service_healthy
 volumes:
   bundle_data:
   postgresql_data:
