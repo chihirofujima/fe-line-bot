@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe AnswerRecorder do
   describe '.call' do
-    let(:user){ create(:user) }
-    let(:question){ create(:question) }  
+    let(:user) { create(:user) }
+    let(:question) { create(:question) }
 
     subject(:call_recorder) do
       described_class.call(
@@ -15,8 +15,8 @@ RSpec.describe AnswerRecorder do
     end
 
     context '初めてその問題に回答する場合' do
-      let(:answer_choice){ 1 }
-      let(:is_correct){ true }
+      let(:answer_choice) { 1 }
+      let(:is_correct) { true }
 
       it '新しいAnswerレコードが1件作成される' do
         expect { call_recorder }.to change(Answer, :count).by(1)
@@ -27,7 +27,7 @@ RSpec.describe AnswerRecorder do
         expect(answer).to have_attributes(
           user_id: user.id,
           question_id: question.id,
-          answer_choice: 1, 
+          answer_choice: 1,
           is_correct: true
         )
       end
@@ -41,7 +41,7 @@ RSpec.describe AnswerRecorder do
     end
 
     context 'すでに回答したことがある問題に再回答する場合' do
-      let(:answer_choice){ 2 }
+      let(:answer_choice) { 2 }
       let(:is_correct) { false }
       let!(:existing_answer) do
         create(
@@ -75,7 +75,7 @@ RSpec.describe AnswerRecorder do
           expect(answer.last_answered_at).to eq(Time.current)
         end
       end
-      
+
       it '同じレコード(id)が使い回される' do
         answer = call_recorder
         expect(answer.id).to eq(existing_answer.id)
@@ -85,7 +85,7 @@ RSpec.describe AnswerRecorder do
     context '正解した場合' do
       let(:answer_choice) { 1 }
       let(:is_correct) { true }
- 
+
       it 'is_correctがtrueで保存される' do
         expect(call_recorder.is_correct).to eq(true)
       end
@@ -94,7 +94,7 @@ RSpec.describe AnswerRecorder do
     context '不正解だった場合' do
       let(:answer_choice) { 3 }
       let(:is_correct) { false }
- 
+
       it 'is_correctがfalseで保存される' do
         expect(call_recorder.is_correct).to eq(false)
       end
@@ -103,11 +103,11 @@ RSpec.describe AnswerRecorder do
     context '戻り値について' do
       let(:answer_choice) { 1 }
       let(:is_correct) { true }
- 
+
       it '保存されたAnswerのインスタンスを返す' do
         expect(call_recorder).to be_a(Answer)
       end
- 
+
       it '返されたAnswerは永続化済み(persisted)である' do
         expect(call_recorder).to be_persisted
       end
