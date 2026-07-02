@@ -77,7 +77,7 @@ RSpec.describe DeliverQuestionJob, type: :job do
 
     context "rand < 0.7（復習ターン）かつ復習問題がない場合" do
       before { question }
-    
+
       it "未回答の新問題が選ばれる" do
         allow_any_instance_of(described_class).to receive(:rand).and_return(0.5)
         expect_any_instance_of(described_class)
@@ -117,7 +117,7 @@ RSpec.describe DeliverQuestionJob, type: :job do
       end
 
       it "エラーがraiseされず処理が継続する" do
-        expect{ described_class.perform_now(user.id)}.not_to raise_error
+        expect { described_class.perform_now(user.id) }.not_to raise_error
       end
 
       it "送信失敗しても次回ジョブはスケジュールされる" do
