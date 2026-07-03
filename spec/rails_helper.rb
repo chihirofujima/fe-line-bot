@@ -72,7 +72,7 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
 
   config.include FactoryBot::Syntax::Methods
-  
+
   config.before(:suite) do
     ActiveJob::Base.queue_adapter = :test
   end
