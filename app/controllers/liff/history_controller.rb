@@ -12,24 +12,29 @@ class Liff::HistoryController < ApplicationController
 
   def create_share_token
     aggregate_result = Liff::HistoryAggregator.new(@user).call
-    summary = aggregate_result[:summary]
+    summary          = aggregate_result[:summary]
+    daily_stats      = aggregate_result[:daily_stats]
+    mastery_history  = aggregate_result[:mastery_history]
 
     share_token = @user.share_tokens.create!(
       snapshot_data: {
-        accuracy_rate: summary[:accuracy_rate],
+        accuracy_rate:    summary[:accuracy_rate],
         total_study_days: summary[:total_study_days],
-        mastery_rate: summary[:mastery_rate],
-        total_answers: summary[:total_answers]
-    }
-  )
+        mastery_rate:     summary[:mastery_rate],
+        total_answers:    summary[:total_answers],
+        # jsonbはDateオブジェクトのキーを保存できないので文字列に変換しておく
+        daily_stats:      daily_stats.transform_keys(&:to_s),
+        mastery_history:  mastery_history
+      }
+    )
 
-  render json: { share_url: "#{request.base_url}/share/#{share_token.token}" }
-end
+    render json: { share_url: "#{request.base_url}/share/#{share_token.token}" }
+  end
 
-private
+  private
 
   def set_user
-    @user= User.find_by(line_user_id: session[:line_user_id])
+    @user = User.find_by(line_user_id: session[:line_user_id])
 
     render json: { error: "ユーザーが見つかりません" }, status: :not_found unless @user
   end

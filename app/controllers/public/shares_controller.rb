@@ -9,26 +9,35 @@ module Public
         return render "not_found", status: :not_found
       end
 
-      user = @share_token.user
-      data = Liff::HistoryAggregator.new(user).call
+      if @share_token.expired?
+        return render "expired", status: :gone
+      end
 
-      @stats            = data[:summary]
-      @daily_stats      = data[:daily_stats]
-      @mastery_history  = data[:mastery_history]
+      snapshot = @share_token.snapshot_data.symbolize_keys
+
+      @stats           = snapshot.slice(:accuracy_rate, :total_study_days, :mastery_rate, :total_answers)
+      @daily_stats     = snapshot[:daily_stats]
+      @mastery_history = snapshot[:mastery_history]
     end
 
     def og_image
       share_token = ShareToken.find_by(token: params[:token])
       return head :not_found unless share_token
+      return head :gone if share_token.expired?
 
-      data = Liff::HistoryAggregator.new(share_token.user).call
-      stats = data[:summary]
+      # --- 動的にステータス画像を生成する処理---
+      # stats = share_token.snapshot_data.symbolize_keys
+      #
+      # png = Rails.cache.fetch("ogp_image/#{share_token.token}/#{share_token.created_at.to_date}") do
+      #   Ogp::ImageGenerator.new(stats).call
+      # end
+      #
+      # send_data png, type: "image/png", disposition: "inline"
 
-      png = Rails.cache.fetch("ogp_image/#{share_token.token}/#{Date.current}") do
-        Ogp::ImageGenerator.new(stats).call
-      end
-
-      send_data png, type: "image/png", disposition: "inline"
+      # --- 静的なOGP画像を返す処理---
+      send_file Rails.root.join("public/images/ogp_default.png"),
+                type: "image/png",
+                disposition: "inline"
     end
   end
 end
