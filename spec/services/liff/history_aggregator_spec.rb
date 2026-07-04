@@ -1,8 +1,8 @@
 require "rails_helper"
 
-#NOTE:
+# NOTE:
 # - 日付・週の境界に依存するロジック（build_daily_stats, build_mastery_history）が多いため、
-#   travel_to で「現在時刻」を固定し、テストを再現可能にしています。
+# travel_to で「現在時刻」を固定し、テストを再現可能にしています。
 RSpec.describe Liff::HistoryAggregator do
   let(:user)      { create(:user) }
   let(:question1) { create(:question) }

@@ -38,7 +38,7 @@ class Liff::HistoryAggregator
   end
 
   # 草グリッド用：過去6ヶ月の日付ごとの回答数
-  # 例: { "2026-04-01" => 5, "2026-04-02" => 3 }
+  # 例: { Date.new(2026,4,1) => 5, Date.new(2026,4,2) => 3 }
   def build_daily_stats
     @user.answers
          .where(created_at: 26.weeks.ago.beginning_of_day..)
