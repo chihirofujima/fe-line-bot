@@ -38,7 +38,7 @@ class Liff::HistoryAggregator
   end
 
   # 草グリッド用：過去6ヶ月の日付ごとの回答数
-  # 例: { "2026-04-01" => 5, "2026-04-02" => 3 }
+  # 例: { Date.new(2026,4,1) => 5, Date.new(2026,4,2) => 3 }
   def build_daily_stats
     @user.answers
          .where(created_at: 26.weeks.ago.beginning_of_day..)
@@ -46,12 +46,11 @@ class Liff::HistoryAggregator
          .count
   end
 
-  # 定着度推移グラフ用：過去13週分の週末時点の定着率
+  # 定着度推移グラフ用：過去26週分の週末時点の定着率
   # 例: [{ date: "3/15", mastery_rate: 10.0 }, ...]
   def build_mastery_history
     (0..12).map do |weeks_ago|
       week_end   = weeks_ago.weeks.ago.end_of_week
-      week_start = week_end.beginning_of_week
 
       tried = @user.answers
                    .where(created_at: ..week_end)
