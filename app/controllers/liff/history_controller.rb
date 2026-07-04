@@ -20,6 +20,9 @@ class Liff::HistoryController < ApplicationController
         total_study_days: summary[:total_study_days],
         mastery_rate: summary[:mastery_rate],
         total_answers: summary[:total_answers]
+        # jsonbはDateオブジェクトのキーを保存できないので文字列に変換しておく
+        daily_stats:      daily_stats.transform_keys(&:to_s),
+        mastery_history:  mastery_history
     }
   )
 
