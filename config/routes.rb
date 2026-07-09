@@ -1,6 +1,7 @@
 require "mission_control/jobs/engine"
 
 Rails.application.routes.draw do
+  get "landing/index"
   post "/line/callback" => "line_bot#callback"
 
   get "up" => "rails/health#show", as: :rails_health_check
@@ -29,5 +30,5 @@ Rails.application.routes.draw do
     patch "settings", to: "settings#update"
   end
 
-  root to: proc { [ 200, {}, [ "OK" ] ] }
+  root to: "landing#index"
 end
