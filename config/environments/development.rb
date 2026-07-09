@@ -93,4 +93,5 @@ config.solid_queue.connects_to = { database: { writing: :queue } }
 
 config.hosts << "localhost"
 config.hosts << "amelia-monocultural-uncredulously.ngrok-free.dev"
+config.hosts << "192.168.201.13"
 end
