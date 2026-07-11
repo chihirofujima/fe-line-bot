@@ -1,0 +1,75 @@
+.landing {
+  min-height: 100vh;
+  padding: 14px;
+  background: #f7f9fc;
+  color: #1f2937;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  line-height: 1.95;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.landing h1 {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.5;
+  margin: 40px 0 12px;
+  color: #111827;
+}
+
+.landing > p {
+  font-size: 16px;
+  color: #374151;
+  margin-bottom: 32px;
+}
+
+.qr-section {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 360px;
+  background: #fff;
+  border: 1px solid #e5eaf0;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+  padding: 28px 20px;
+  margin-bottom: 24px;
+}
+
+.qr-code {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 16px;
+}
+
+.qr-section p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.add-friend-section {
+  margin-bottom: 40px;
+}
+
+.pc-note {
+  font-size: 13px;
+  color: #9ca3af;
+  margin-top: 12px;
+}
+
+@media (min-width: 768px) {
+  .landing h1 {
+    font-size: 31px;
+  }
+
+  .qr-section {
+    max-width: 420px;
+    padding: 36px 28px;
+  }
+
+  .qr-code {
+    width: 240px;
+    height: 240px;
+  }
+}

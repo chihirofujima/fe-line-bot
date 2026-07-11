@@ -1,0 +1,22 @@
+<div class="landing">
+  <h1>fetokkuで基本情報技術者試験の学習を習慣化</h1>
+  <p>LINEで毎日問題が届く、SM-2アルゴリズム採用の学習Bot</p>
+
+  <div class="qr-section">
+    <%= image_tag "/images/line_qr_code.png", alt: "LINE友だち追加QRコード", class: "qr-code" %>
+    <p>
+      LINEアプリのカメラでQRコードを読み取って<br>
+      友だち追加してください。
+    </p>
+  </div>
+
+  <div class="add-friend-section">
+    <%= link_to "https://lin.ee/nLa70jJ", target: "_blank", rel: "noopener" do %>
+      <%= image_tag "https://scdn.line-apps.com/n/line_add_friends/btn/ja.png",
+            alt: "友だち追加", height: "36" %>
+    <% end %>
+    <p class="pc-note">
+      ボタンでうまく開けない場合は、上部のQRコードをスマホのLINEアプリで読み取ってください。
+    </p>
+  </div>
+</div>
