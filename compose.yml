@@ -41,27 +41,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-  worker:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    command: bundle exec rails solid_queue:start
-    volumes:
-      - .:/myapp
-      - bundle_data:/usr/local/bundle:cached
-    environment:
-      TZ: Asia/Tokyo
-      LINE_CHANNEL_SECRET: ${LINE_CHANNEL_SECRET}
-      LINE_CHANNEL_TOKEN: ${LINE_CHANNEL_TOKEN}
-      RAILS_LOG_TO_STDOUT: "true"
-      RAILS_ENV: development
-      ADMIN_USER: admin
-      ADMIN_PASSWORD: 1234
-      LIFF_ID_SETTINGS: ${LIFF_ID_SETTINGS} 
-      LIFF_ID_HISTORY: ${LIFF_ID_HISTORY} 
-      LINE_LOGIN_CHANNEL_ID: ${LINE_LOGIN_CHANNEL_ID}
-    depends_on:
-      - web
   test:
     build:
       context: .
