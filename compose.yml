@@ -33,9 +33,9 @@ services:
       RAILS_ENV: development
       ADMIN_USER: admin
       ADMIN_PASSWORD: 1234
+      LIFF_CHANNEL_ID: ${LIFF_CHANNEL_ID} 
       LIFF_ID_SETTINGS: ${LIFF_ID_SETTINGS} 
       LIFF_ID_HISTORY: ${LIFF_ID_HISTORY} 
-      LINE_LOGIN_CHANNEL_ID: ${LINE_LOGIN_CHANNEL_ID}
     ports:
       - "3000:3000"
     depends_on:
@@ -53,6 +53,7 @@ services:
     environment:
       TZ: Asia/Tokyo
       RAILS_ENV: test
+      LIFF_CHANNEL_ID: ${LIFF_CHANNEL_ID} 
       LINE_CHANNEL_SECRET: ${LINE_CHANNEL_SECRET}
       LINE_CHANNEL_TOKEN: ${LINE_CHANNEL_TOKEN}
     depends_on:

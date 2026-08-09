@@ -21,6 +21,7 @@
     - [【コア技術】LINE Messaging API / LIFF](#コア技術line-messaging-api--liff)
     - [【デプロイ先】Render](#デプロイ先render)
   - [開発環境構築方法](#開発環境構築方法)
+    - [環境変数の設定](#環境変数の設定)
     - [スマートフォンからローカル環境を確認する場合](#スマートフォンからローカル環境を確認する場合)
     - [データベースのリセット](#データベースのリセット)
   - [工夫したポイント](#工夫したポイント)
@@ -145,6 +146,21 @@ css:    SCSSのビルド・監視（yarn watch:css）
 worker: Solid Queueワーカー
 ```
 
+### 環境変数の設定
+
+`.env.sample` をコピーして `.env` を作成し、各値を設定してください。
+
+\`\`\`bash
+cp .env.sample .env
+\`\`\`
+
+| 変数名 | 取得方法 |
+| --- | --- |
+| `LINE_CHANNEL_SECRET` / `LINE_CHANNEL_TOKEN` | LINE Developers Console の Messaging APIチャネル |
+| `LIFF_CHANNEL_ID` | LINE Developers Console の LIFFタブ |
+| `LIFF_ID_HISTORY` / `LIFF_ID_SETTINGS` | 同上（学習履歴用・配信設定用それぞれのLIFF ID） |
+
+
 ### スマートフォンからローカル環境を確認する場合
 
 同一Wi-Fi内の実機からローカルサーバーへアクセスしたい場合、WSL2環境ではWindows側でのポート転送（`netsh interface portproxy`）とRailsの`config.hosts`設定が別途必要です。
@@ -219,11 +235,15 @@ LIFF画面でユーザーを識別する際、フロントエンドから送ら�
 ```ruby
 # Faradayを使ってLINEのverify APIにIDTokenを送信し、検証済みのline_user_idのみを信頼する
 response = Faraday.post("https://api.line.me/oauth2/v2.1/verify") do |req|
-  req.body = { id_token: id_token, client_id: ENV["LINE_LOGIN_CHANNEL_ID"] }
+  req.headers["Content-Type"] = "application/x-www-form-urlencoded"
+  req.body = URI.encode_www_form(
+    id_token: id_token,
+    client_id: ENV.fetch("LIFF_CHANNEL_ID")
+  )
 end
 
-verified_line_user_id = JSON.parse(response.body)["sub"]
-session[:line_user_id] = verified_line_user_id
+result = JSON.parse(response.body)
+session[:line_user_id] = result["sub"]
 ```
 
 クライアントから送られた値を無条件に信頼しない、という基本方針を個人開発でも徹底した点を意識しました。
