@@ -1,29 +1,33 @@
-require 'csv'
+if Rails.env.test?
+  Rails.logger.info "test環境では過去問CSVのseedをスキップします"
+else
+  require 'csv'
 
-Dir[Rails.root.join('db/csv/*.csv')].each do |file|
-  url_path = File.basename(file, '.csv')
-  Rails.logger.info "Importing #{url_path}..."
+  Dir[Rails.root.join('db/csv/*.csv')].each do |file|
+    url_path = File.basename(file, '.csv')
+    Rails.logger.info "Importing #{url_path}..."
 
-  reiwa_number = url_path[/\A\d+/].to_i
-  year = 2018 + reiwa_number # 令和N年 = 2018 + N
+    reiwa_number = url_path[/\A\d+/].to_i
+    year = 2018 + reiwa_number # 令和N年 = 2018 + N
 
-  CSV.foreach(file, headers: true, encoding: 'BOM|UTF-8') do |row|
-    number = row['number'].to_i
+    CSV.foreach(file, headers: true, encoding: 'BOM|UTF-8') do |row|
+      number = row['number'].to_i
 
-    Question.find_or_initialize_by(number: number).tap do |q|
-      q.content         = row['content']
-      q.correct_answer  = row['correct_answer']
-      q.image_url       = row['image_url'].presence
-      q.choice_1        = row['choice_1']
-      q.choice_2        = row['choice_2']
-      q.choice_3        = row['choice_3']
-      q.choice_4        = row['choice_4']
-      q.year            = year
-      q.explanation_url = row['explanation_url'].presence&.strip ||
-        "https://www.fe-siken.com/kakomon/#{url_path}/q#{number}.html"
-      q.save!
+      Question.find_or_initialize_by(number: number).tap do |q|
+        q.content         = row['content']
+        q.correct_answer  = row['correct_answer']
+        q.image_url       = row['image_url'].presence
+        q.choice_1        = row['choice_1']
+        q.choice_2        = row['choice_2']
+        q.choice_3        = row['choice_3']
+        q.choice_4        = row['choice_4']
+        q.year            = year
+        q.explanation_url = row['explanation_url'].presence&.strip ||
+          "https://www.fe-siken.com/kakomon/#{url_path}/q#{number}.html"
+        q.save!
+      end
     end
-  end
 
-  puts "#{url_path}: インポート完了（year=#{year}, 合計 #{Question.count} 件）"
+    puts "#{url_path}: インポート完了（year=#{year}, 合計 #{Question.count} 件）"
+  end
 end
