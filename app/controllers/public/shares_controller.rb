@@ -2,6 +2,9 @@ module Public
   class SharesController < ApplicationController
     layout "public" # liff.js を読み込まない専用レイアウト
 
+    # クローラー(LINE/Twitter等のOGPボット)や旧ブラウザからのアクセスも許可する必要があるため無効化
+    allow_browser versions: :modern, block: false
+
     def show
       @share_token = ShareToken.find_by(token: params[:token])
 
