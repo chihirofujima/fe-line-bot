@@ -25,7 +25,7 @@ gem "faraday"
 # 画像アップロード
 gem "image_processing", "~> 2.0"
 
-gem "mini_magick", "~> 5.3"
+gem "mini_magick", "~> 5.4"
 
 gem "aws-sdk-s3", require: false  # S3に保存する場合
 
